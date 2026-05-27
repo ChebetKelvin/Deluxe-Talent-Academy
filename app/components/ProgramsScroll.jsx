@@ -46,8 +46,7 @@ const PROGRAMS = [
     category: "Leadership & Communication",
     title: "Public Speaking & Leadership",
     benefit: "Build confidence, communication, and leadership skills.",
-    image:
-      "https://tech-ish.com/wp-content/uploads/2018/05/Great-Debators-Contenst-960x658.jpg",
+    image: "/public-speaking.jpg",
     accent: "#fef9c3",
     tint: "#a16207",
     outcome: "Poise & communication skills",
