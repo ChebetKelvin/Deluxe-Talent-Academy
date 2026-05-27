@@ -8,8 +8,8 @@ const REASONS = [
     description:
       "Our programs are designed with tomorrow in mind. We don't just teach skills — we prepare your child for careers that don't even exist yet. Every module is crafted alongside industry experts and updated quarterly to stay ahead of global trends.",
     highlight: "Industry-aligned learning paths",
-    accent: "#3b82f6",
-    gradient: "from-blue-500/20 to-blue-600/5",
+    accent: "#1d4ed8",
+    cardAccentBg: "#dbeafe",
   },
   {
     icon: Users,
@@ -17,8 +17,8 @@ const REASONS = [
     description:
       "Every child gets the attention they deserve. Our 6:1 student-to-mentor ratio ensures personalized guidance. Our mentors are not just teachers — they're practicing professionals who bring real-world experience into every session.",
     highlight: "6:1 student-to-mentor ratio",
-    accent: "#8b5cf6",
-    gradient: "from-violet-500/20 to-violet-600/5",
+    accent: "#6b21a8",
+    cardAccentBg: "#f3e8ff",
   },
   {
     icon: BookOpen,
@@ -26,8 +26,8 @@ const REASONS = [
     description:
       "We believe the best learning happens through action. Forget passive lectures — our students build robots, run experiments, create art, and lead projects. 90% of class time is spent on hands-on activities and collaborative challenges.",
     highlight: "90% hands-on learning",
-    accent: "#ec4899",
-    gradient: "from-pink-500/20 to-pink-600/5",
+    accent: "#9d174d",
+    cardAccentBg: "#fce7f3",
   },
   {
     icon: Trophy,
@@ -35,8 +35,8 @@ const REASONS = [
     description:
       "Our results speak for themselves. Over 5,000 alumni have gone on to win national competitions, launch startups, and secure spots at top universities. We don't just teach — we transform potential into achievement.",
     highlight: "5,000+ successful alumni",
-    accent: "#f59e0b",
-    gradient: "from-amber-500/20 to-amber-600/5",
+    accent: "#92400e",
+    cardAccentBg: "#fef3c7",
   },
   {
     icon: Sparkles,
@@ -44,8 +44,8 @@ const REASONS = [
     description:
       "Step into our world-class innovation labs equipped with 3D printers, robotics kits, VR stations, and professional-grade creative suites. Your child learns in an environment that inspires curiosity and enables creation.",
     highlight: "Professional-grade equipment",
-    accent: "#10b981",
-    gradient: "from-emerald-500/20 to-emerald-600/5",
+    accent: "#15803d",
+    cardAccentBg: "#dcfce7",
   },
   {
     icon: Star,
@@ -53,17 +53,270 @@ const REASONS = [
     description:
       "We nurture the complete individual — intellectual, emotional, and social. Beyond technical skills, we build confidence, resilience, leadership, and emotional intelligence. Our graduates leave ready for life, not just exams.",
     highlight: "Mind, body & character growth",
-    accent: "#06b6d4",
-    gradient: "from-cyan-500/20 to-cyan-600/5",
+    accent: "#0369a1",
+    cardAccentBg: "#e0f2fe",
   },
 ];
 
+/* ─── Styles ─────────────────────────────────────────────────────────────── */
+const STYLES = `
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  @keyframes wcu-slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes wcu-scaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .wcu-section {
+    position: relative;
+    background: #fdfaf6;
+  }
+  .wcu-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .wcu-bg-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: background 700ms ease;
+  }
+  .wcu-inner {
+    height: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── LEFT PANEL ── */
+  .wcu-left {
+    width: 50%;
+    padding-right: 64px;
+    flex-shrink: 0;
+  }
+  .wcu-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    transition: color 500ms ease;
+    animation: wcu-slideUp 0.6s ease-out forwards;
+  }
+  .wcu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: #1c1510;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    animation: wcu-slideUp 0.6s ease-out forwards;
+    animation-delay: 100ms;
+    opacity: 0;
+  }
+  .wcu-rule {
+    height: 3px;
+    width: 72px;
+    border-radius: 99px;
+    margin-bottom: 24px;
+    transition: background-color 500ms ease;
+    animation: wcu-slideUp 0.5s ease-out forwards;
+    animation-delay: 200ms;
+    opacity: 0;
+  }
+  .wcu-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #6b5e52;
+    margin-bottom: 24px;
+    animation: wcu-slideUp 0.6s ease-out forwards;
+    animation-delay: 250ms;
+    opacity: 0;
+  }
+  .wcu-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 99px;
+    border: 1px solid;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    transition: border-color 500ms ease, background 500ms ease, color 500ms ease;
+    animation: wcu-scaleIn 0.5s ease-out forwards;
+    animation-delay: 350ms;
+    opacity: 0;
+  }
+  .wcu-counter-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .wcu-counter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1;
+    transition: color 500ms ease;
+    animation: wcu-scaleIn 0.4s ease-out forwards;
+    animation-delay: 100ms;
+    opacity: 0;
+  }
+  .wcu-counter-sep {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: #b8996e;
+  }
+  .wcu-counter-total {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    color: #b8996e;
+  }
+  .wcu-counter-line {
+    flex: 1;
+    height: 1px;
+    background: #ede6dc;
+    margin-left: 12px;
+  }
+
+  /* ── RIGHT PANEL — card stack ── */
+  .wcu-right {
+    flex: 1;
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wcu-card-wrap {
+    position: absolute;
+    width: 340px;
+    height: 420px;
+    transition: transform 700ms cubic-bezier(0.16,1,0.3,1),
+                opacity 700ms ease,
+                filter 700ms ease;
+  }
+  .wcu-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 1px solid #ede6dc;
+    background: #fff;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 500ms ease, box-shadow 500ms ease;
+  }
+  .wcu-card.is-active {
+    box-shadow: 0 20px 60px rgba(180,140,80,0.14);
+  }
+  .wcu-card-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+    transition: background 500ms ease;
+  }
+  .wcu-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1510;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .wcu-card-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #6b5e52;
+    flex: 1;
+  }
+  .wcu-card-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f0e8dc;
+  }
+  .wcu-card-highlight {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    transition: color 500ms ease;
+  }
+
+  /* ── MOBILE DOTS ── */
+  .wcu-mobile-dots {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 8px;
+    z-index: 10;
+  }
+  .wcu-dot {
+    height: 6px;
+    border-radius: 99px;
+    transition: width 400ms cubic-bezier(0.16,1,0.3,1), background 300ms ease;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .wcu-right { display: none; }
+    .wcu-left {
+      width: 100%;
+      padding-right: 0;
+    }
+    .wcu-mobile-dots { display: flex; }
+  }
+  @media (max-width: 640px) {
+    .wcu-inner { padding: 0 24px; }
+    .wcu-title { font-size: clamp(26px, 7vw, 38px); }
+    .wcu-desc { font-size: 15px; }
+  }
+`;
+
+function useStyleInjection() {
+  useEffect(() => {
+    const id = "wcu-styles";
+    if (document.getElementById(id)) return;
+    const tag = document.createElement("style");
+    tag.id = id;
+    tag.textContent = STYLES;
+    document.head.appendChild(tag);
+    return () => {
+      const el = document.getElementById(id);
+      if (el) document.head.removeChild(el);
+    };
+  }, []);
+}
+
 export default function WhyChooseUs() {
+  useStyleInjection();
+
   const sectionRef = useRef(null);
-  const [progress, setProgress] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [previousIndex, setPreviousIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -71,47 +324,47 @@ export default function WhyChooseUs() {
 
   useEffect(() => {
     if (!isMounted) return;
-
     const section = sectionRef.current;
     if (!section) return;
 
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = section.offsetHeight - vh;
+      const total = section.offsetHeight - window.innerHeight;
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
-      const newProgress = total > 0 ? scrolled / total : 0;
-
-      setProgress(newProgress);
-      const newIndex = Math.min(
+      const p = total > 0 ? scrolled / total : 0;
+      const idx = Math.min(
         REASONS.length - 1,
-        Math.floor(newProgress * REASONS.length + 0.0001),
+        Math.floor(p * REASONS.length + 0.0001),
       );
-
-      if (newIndex !== activeIndex) {
-        setPreviousIndex(activeIndex);
-        setActiveIndex(newIndex);
-      }
+      setActiveIndex(idx);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [isMounted, activeIndex]);
+  }, [isMounted]);
 
   if (!isMounted) {
     return (
       <section
-        className="relative bg-background"
+        className="wcu-section"
         style={{ height: `${REASONS.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-screen flex items-center justify-center">
-          <div className="text-muted-foreground">Loading...</div>
+        <div
+          className="wcu-sticky"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <span style={{ color: "#9c876e", fontFamily: "serif" }}>
+            Loading…
+          </span>
         </div>
       </section>
     );
@@ -120,12 +373,9 @@ export default function WhyChooseUs() {
   const active = REASONS[activeIndex];
   const ActiveIcon = active.icon;
 
-  // Calculate card positions for spatial depth
   const getCardStyle = (index) => {
     const diff = index - activeIndex;
-
     if (diff === 0) {
-      // Active card - centered, full opacity
       return {
         transform: "translateX(0) scale(1)",
         opacity: 1,
@@ -133,21 +383,19 @@ export default function WhyChooseUs() {
         filter: "blur(0px)",
       };
     } else if (diff < 0) {
-      // Previous cards - shifted left, faded, blurred
-      const offset = diff * 60;
+      const offset = diff * 55;
       return {
-        transform: `translateX(${offset}px) scale(${0.85 + diff * 0.05})`,
-        opacity: Math.max(0, 0.4 + diff * 0.2),
+        transform: `translateX(${offset}px) scale(${Math.max(0.75, 0.88 + diff * 0.05)})`,
+        opacity: Math.max(0, 0.38 + diff * 0.18),
         zIndex: 10 + diff,
-        filter: `blur(${Math.abs(diff) * 2}px)`,
+        filter: `blur(${Math.min(Math.abs(diff) * 2, 6)}px)`,
       };
     } else {
-      // Upcoming cards - waiting on the right
       return {
-        transform: `translateX(${120 + diff * 40}px) scale(${0.9 - diff * 0.05})`,
-        opacity: Math.max(0, 0.5 - diff * 0.15),
+        transform: `translateX(${110 + diff * 36}px) scale(${Math.max(0.75, 0.9 - diff * 0.05)})`,
+        opacity: Math.max(0, 0.48 - diff * 0.14),
         zIndex: 10 - diff,
-        filter: `blur(${diff * 1.5}px)`,
+        filter: `blur(${Math.min(diff * 1.5, 6)}px)`,
       };
     }
   };
@@ -155,225 +403,133 @@ export default function WhyChooseUs() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-background"
-      style={{
-        height: `${REASONS.length * 100}vh`,
-      }}
-      aria-label="Why choose Deluxe Talent Academy"
+      className="wcu-section"
+      style={{ height: `${REASONS.length * 100}vh` }}
+      aria-label="Why choose us"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Background Gradient */}
+      <div className="wcu-sticky">
+        {/* Warm ambient glow */}
         <div
-          className="absolute inset-0 transition-all duration-700"
+          className="wcu-bg-glow"
           style={{
-            background: `radial-gradient(circle at 30% 50%, ${active.accent}08 0%, transparent 70%)`,
+            background: `radial-gradient(ellipse 60% 60% at 30% 50%, ${active.cardAccentBg} 0%, transparent 70%)`,
           }}
         />
 
-        <div className="h-full max-w-7xl mx-auto px-6 lg:px-8 flex items-center">
-          {/* LEFT PANEL - Narrative Content */}
-          <div className="w-full lg:w-1/2 pr-0 lg:pr-16">
-            {/* Section Label */}
-            <div className="overflow-hidden mb-4">
-              <p
-                key={`label-${activeIndex}`}
-                className="text-md font-semibold tracking-widest uppercase animate-slide-up"
-                style={{
-                  color: active.accent,
-                  fontFamily: "'Playfair Display', serif",
-                  animationDelay: "50ms",
-                }}
-              >
-                Why Choose Us
-              </p>
-            </div>
+        <div className="wcu-inner">
+          {/* ── LEFT PANEL ── */}
+          <div className="wcu-left">
+            <p
+              key={`label-${activeIndex}`}
+              className="wcu-label"
+              style={{ color: active.accent }}
+            >
+              Why Choose Us
+            </p>
 
-            {/* Title */}
-            <div className="overflow-hidden mb-6">
-              <h2
-                key={`title-${activeIndex}`}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight animate-slide-up"
-                style={{
-                  animationDelay: "100ms",
-                  fontFamily: "'Playfair Display', serif",
-                }}
-              >
-                {active.title}
-              </h2>
-            </div>
+            <h2 key={`title-${activeIndex}`} className="wcu-title">
+              {active.title}
+            </h2>
 
-            {/* Decorative Line */}
             <div
-              className="w-20 h-1 rounded-full mb-6 animate-slide-up"
-              style={{
-                backgroundColor: active.accent,
-                animationDelay: "200ms",
-              }}
+              className="wcu-rule"
+              style={{ backgroundColor: active.accent }}
             />
 
-            {/* Description */}
-            <div className="overflow-hidden mb-6">
-              <p
-                key={`desc-${activeIndex}`}
-                className="text-base md:text-lg text-muted-foreground leading-relaxed animate-slide-up"
-                style={{
-                  animationDelay: "250ms",
-                  fontFamily: "'DM Sans', sans-serif",
-                }}
-              >
-                {active.description}
-              </p>
-            </div>
+            <p key={`desc-${activeIndex}`} className="wcu-desc">
+              {active.description}
+            </p>
 
-            {/* Highlight Badge */}
             <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border animate-scale-in"
+              key={`badge-${activeIndex}`}
+              className="wcu-badge"
               style={{
                 borderColor: `${active.accent}30`,
-                backgroundColor: `${active.accent}10`,
+                backgroundColor: active.cardAccentBg,
                 color: active.accent,
-                animationDelay: "350ms",
               }}
             >
-              <Star className="w-4 h-4" />
-              <span className="text-sm font-semibold">{active.highlight}</span>
+              <Star size={14} aria-hidden="true" />
+              {active.highlight}
             </div>
 
-            {/* Counter */}
-            <div className="mt-8 flex items-center gap-3">
+            <div className="wcu-counter-row">
               <span
-                className="text-4xl md:text-5xl font-bold animate-number-change"
+                key={`num-${activeIndex}`}
+                className="wcu-counter-num"
                 style={{ color: active.accent }}
               >
                 {String(activeIndex + 1).padStart(2, "0")}
               </span>
-              <span className="text-xl text-muted-foreground/50">/</span>
-              <span className="text-xl text-muted-foreground/50">
+              <span className="wcu-counter-sep">/</span>
+              <span className="wcu-counter-total">
                 {String(REASONS.length).padStart(2, "0")}
               </span>
-              <div className="ml-4 h-px flex-1 bg-border/50" />
+              <div className="wcu-counter-line" />
             </div>
           </div>
 
-          {/* RIGHT PANEL - Animated Card Stream */}
-          <div className="hidden lg:block w-1/2 relative h-125">
-            <div className="absolute inset-0 flex items-center justify-center">
-              {REASONS.map((reason, index) => {
-                const Icon = reason.icon;
-                const style = getCardStyle(index);
-                const isActive = index === activeIndex;
+          {/* ── RIGHT PANEL — card stack ── */}
+          <div className="wcu-right">
+            {REASONS.map((reason, index) => {
+              const Icon = reason.icon;
+              const cardStyle = getCardStyle(index);
+              const isActive = index === activeIndex;
 
-                return (
+              return (
+                <div key={index} className="wcu-card-wrap" style={cardStyle}>
                   <div
-                    key={index}
-                    className="absolute w-85 h-105 transition-all duration-700 ease-out"
+                    className={`wcu-card${isActive ? " is-active" : ""}`}
                     style={{
-                      ...style,
-                      transitionProperty: "transform, opacity, filter",
-                      transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+                      borderColor: isActive ? `${reason.accent}30` : "#ede6dc",
                     }}
                   >
                     <div
-                      className={`w-full h-full rounded-2xl border bg-card p-8 flex flex-col ${
-                        isActive ? "shadow-2xl" : "shadow-lg"
-                      }`}
+                      className="wcu-card-icon-wrap"
                       style={{
-                        borderColor: isActive
-                          ? `${reason.accent}40`
-                          : "var(--border)",
+                        backgroundColor: reason.cardAccentBg,
+                        color: reason.accent,
                       }}
                     >
-                      {/* Icon */}
-                      <div
-                        className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
-                        style={{
-                          backgroundColor: `${reason.accent}15`,
-                          color: reason.accent,
-                        }}
+                      <Icon size={24} aria-hidden="true" />
+                    </div>
+
+                    <h3 className="wcu-card-title">{reason.title}</h3>
+
+                    <p className="wcu-card-desc">
+                      {reason.description.slice(0, 148)}…
+                    </p>
+
+                    <div className="wcu-card-footer">
+                      <span
+                        className="wcu-card-highlight"
+                        style={{ color: reason.accent }}
                       >
-                        <Icon className="w-7 h-7" />
-                      </div>
-
-                      {/* Card Title */}
-                      <h3 className="text-xl font-bold text-card-foreground mb-3">
-                        {reason.title}
-                      </h3>
-
-                      {/* Card Description (truncated) */}
-                      <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                        {reason.description.slice(0, 150)}...
-                      </p>
-
-                      {/* Learn More */}
-                      <div className="mt-4 pt-4 border-t border-border">
-                        <span
-                          className="text-sm font-semibold"
-                          style={{ color: reason.accent }}
-                        >
-                          {reason.highlight}
-                        </span>
-                      </div>
+                        {reason.highlight}
+                      </span>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Mobile: Simplified horizontal indicator */}
-          <div className="lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-            {REASONS.map((reason, index) => (
-              <div
-                key={index}
-                className="h-1.5 rounded-full transition-all duration-500"
-                style={{
-                  width: index === activeIndex ? "24px" : "8px",
-                  backgroundColor:
-                    index === activeIndex
-                      ? reason.accent
-                      : `${reason.accent}40`,
-                }}
-              />
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
+
+        {/* ── MOBILE DOTS ── */}
+        <div className="wcu-mobile-dots">
+          {REASONS.map((reason, index) => (
+            <div
+              key={index}
+              className="wcu-dot"
+              style={{
+                width: index === activeIndex ? 24 : 8,
+                backgroundColor:
+                  index === activeIndex ? reason.accent : "#ede6dc",
+              }}
+            />
+          ))}
+        </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .animate-slide-up {
-          animation: slideUp 0.6s ease-out forwards;
-        }
-
-        .animate-scale-in {
-          animation: scaleIn 0.5s ease-out forwards;
-        }
-
-        .animate-number-change {
-          animation: scaleIn 0.4s ease-out forwards;
-        }
-      `}</style>
     </section>
   );
 }

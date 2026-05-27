@@ -39,12 +39,11 @@ const PROGRAMS = [
     ],
     ages: "10 – 17",
     duration: "Weekly sessions",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
-    // Grid sizing for masonry
-    size: "tall", // tall, wide, square
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.08)",
+    colorBorder: "rgba(29,78,216,0.2)",
+    colorGlow: "rgba(29,78,216,0.1)",
+    size: "tall",
   },
   {
     id: "robotics",
@@ -62,10 +61,10 @@ const PROGRAMS = [
     ],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.08)",
+    colorBorder: "rgba(29,78,216,0.2)",
+    colorGlow: "rgba(29,78,216,0.1)",
     size: "wide",
   },
   {
@@ -84,10 +83,10 @@ const PROGRAMS = [
     ],
     ages: "10 – 17",
     duration: "Weekly sessions",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.08)",
+    colorBorder: "rgba(29,78,216,0.2)",
+    colorGlow: "rgba(29,78,216,0.1)",
     size: "square",
   },
   {
@@ -106,10 +105,10 @@ const PROGRAMS = [
     ],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#C9A84C",
-    colorDim: "rgba(201,168,76,0.07)",
-    colorBorder: "rgba(201,168,76,0.18)",
-    colorGlow: "rgba(201,168,76,0.1)",
+    color: "#d97706",
+    colorDim: "rgba(217,119,6,0.08)",
+    colorBorder: "rgba(217,119,6,0.22)",
+    colorGlow: "rgba(217,119,6,0.1)",
     size: "tall",
   },
   {
@@ -128,10 +127,10 @@ const PROGRAMS = [
     ],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#C9A84C",
-    colorDim: "rgba(201,168,76,0.07)",
-    colorBorder: "rgba(201,168,76,0.18)",
-    colorGlow: "rgba(201,168,76,0.1)",
+    color: "#d97706",
+    colorDim: "rgba(217,119,6,0.08)",
+    colorBorder: "rgba(217,119,6,0.22)",
+    colorGlow: "rgba(217,119,6,0.1)",
     size: "wide",
   },
   {
@@ -150,10 +149,10 @@ const PROGRAMS = [
     ],
     ages: "10 – 17",
     duration: "Weekly sessions",
-    color: "#1D9E75",
-    colorDim: "rgba(29,158,117,0.07)",
-    colorBorder: "rgba(29,158,117,0.18)",
-    colorGlow: "rgba(29,158,117,0.1)",
+    color: "#15803d",
+    colorDim: "rgba(21,128,61,0.08)",
+    colorBorder: "rgba(21,128,61,0.2)",
+    colorGlow: "rgba(21,128,61,0.1)",
     size: "square",
   },
   {
@@ -172,10 +171,10 @@ const PROGRAMS = [
     ],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#1D9E75",
-    colorDim: "rgba(29,158,117,0.07)",
-    colorBorder: "rgba(29,158,117,0.18)",
-    colorGlow: "rgba(29,158,117,0.1)",
+    color: "#15803d",
+    colorDim: "rgba(21,128,61,0.08)",
+    colorBorder: "rgba(21,128,61,0.2)",
+    colorGlow: "rgba(21,128,61,0.1)",
     size: "tall",
   },
   {
@@ -194,10 +193,10 @@ const PROGRAMS = [
     ],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#D85A30",
-    colorDim: "rgba(216,90,48,0.07)",
-    colorBorder: "rgba(216,90,48,0.18)",
-    colorGlow: "rgba(216,90,48,0.1)",
+    color: "#b45309",
+    colorDim: "rgba(180,83,9,0.08)",
+    colorBorder: "rgba(180,83,9,0.2)",
+    colorGlow: "rgba(180,83,9,0.1)",
     size: "wide",
   },
   {
@@ -211,10 +210,10 @@ const PROGRAMS = [
     skills: ["Self-defence", "Focus", "Discipline", "Self-confidence"],
     ages: "8 – 17",
     duration: "Weekly sessions",
-    color: "#D85A30",
-    colorDim: "rgba(216,90,48,0.07)",
-    colorBorder: "rgba(216,90,48,0.18)",
-    colorGlow: "rgba(216,90,48,0.1)",
+    color: "#b45309",
+    colorDim: "rgba(180,83,9,0.08)",
+    colorBorder: "rgba(180,83,9,0.2)",
+    colorGlow: "rgba(180,83,9,0.1)",
     size: "square",
   },
 ];
@@ -235,9 +234,7 @@ export default function ProgramsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -259,33 +256,32 @@ export default function ProgramsPage() {
     navigate(`/programs/${program.id}`, { state: { program } });
   };
 
-  // Assign grid positions for masonry layout
-  const getGridStyle = (size, index) => {
+  const getGridStyle = (size) => {
     if (isMobile) return {};
-
     switch (size) {
       case "tall":
         return { gridRow: "span 2" };
       case "wide":
         return { gridColumn: "span 2" };
-      case "square":
       default:
         return {};
     }
   };
 
   return (
-    <div style={{ background: "#08091A", minHeight: "100vh", paddingTop: 72 }}>
-      {/* ── Page Header ── */}
+    <div style={{ background: "#fdfaf6", minHeight: "100vh", paddingTop: 72 }}>
+      {/* ── Page Header ────────────────────────────────────────────────── */}
       <div
         ref={headerRef}
         style={{
           position: "relative",
           overflow: "hidden",
           padding: isMobile ? "60px 0 48px" : "80px 0 72px",
+          /* Warm parchment header base */
+          background: "#fdfaf6",
         }}
       >
-        {/* BG orbs */}
+        {/* Background treatment */}
         <div
           aria-hidden
           style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
@@ -299,7 +295,16 @@ export default function ProgramsPage() {
                   backgroundImage: `url(${PAGE_HEADER_IMAGE})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center center",
-                  opacity: 0.5,
+                  opacity: 0.08,
+                }}
+              />
+              {/* Warm cream fade instead of dark navy */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(to right, #fdfaf6 25%, transparent 65%, #fdfaf6 100%)",
                 }}
               />
               <div
@@ -307,15 +312,7 @@ export default function ProgramsPage() {
                   position: "absolute",
                   inset: 0,
                   background:
-                    "linear-gradient(to right, #08091A 30%, transparent 70%, #08091A 100%)",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    "linear-gradient(to bottom, transparent 40%, #08091A 100%)",
+                    "linear-gradient(to bottom, transparent 40%, #fdfaf6 100%)",
                 }}
               />
             </>
@@ -328,7 +325,7 @@ export default function ProgramsPage() {
                   height: 600,
                   borderRadius: "50%",
                   background:
-                    "radial-gradient(circle, rgba(43,94,255,0.1) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%)",
                   top: -200,
                   right: -100,
                   filter: "blur(40px)",
@@ -341,7 +338,7 @@ export default function ProgramsPage() {
                   height: 300,
                   borderRadius: "50%",
                   background:
-                    "radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)",
+                    "radial-gradient(circle, rgba(217,119,6,0.07) 0%, transparent 70%)",
                   bottom: -60,
                   left: 80,
                   filter: "blur(30px)",
@@ -349,13 +346,23 @@ export default function ProgramsPage() {
               />
             </>
           )}
+          {/* Subtle warm grid */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+                "linear-gradient(rgba(28,21,16,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(28,21,16,0.025) 1px, transparent 1px)",
               backgroundSize: "80px 80px",
+            }}
+          />
+          {/* Grain */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+              opacity: 0.04,
             }}
           />
         </div>
@@ -391,7 +398,7 @@ export default function ProgramsPage() {
                 to="/"
                 style={{
                   fontSize: 12,
-                  color: "rgba(240,238,232,0.35)",
+                  color: "#9c876e",
                   textDecoration: "none",
                   fontFamily: "'DM Sans', sans-serif",
                 }}
@@ -403,7 +410,7 @@ export default function ProgramsPage() {
                 height="12"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="rgba(240,238,232,0.25)"
+                stroke="#b8996e"
                 strokeWidth="2"
               >
                 <polyline points="9 18 15 12 9 6" />
@@ -411,7 +418,7 @@ export default function ProgramsPage() {
               <span
                 style={{
                   fontSize: 12,
-                  color: "rgba(240,238,232,0.6)",
+                  color: "#6b5e52",
                   fontFamily: "'DM Sans', sans-serif",
                 }}
               >
@@ -428,6 +435,7 @@ export default function ProgramsPage() {
               }}
             >
               <div>
+                {/* Eyebrow */}
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -441,13 +449,15 @@ export default function ProgramsPage() {
                     fontWeight: 700,
                     letterSpacing: "3px",
                     textTransform: "uppercase",
-                    color: "#C9A84C",
+                    color: "#d97706",
                     marginBottom: 14,
                     fontFamily: "'DM Sans', sans-serif",
                   }}
                 >
                   9 Specialist Clubs
                 </motion.div>
+
+                {/* Headline */}
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -464,15 +474,17 @@ export default function ProgramsPage() {
                     fontWeight: 900,
                     lineHeight: 1.06,
                     letterSpacing: "-2px",
-                    color: "#F0EEE8",
+                    color: "#1c1510",
                     margin: "0 0 18px",
                   }}
                 >
                   Every Child Has a<br />
-                  <em style={{ color: "#2B5EFF", fontStyle: "italic" }}>
+                  <em style={{ color: "#d97706", fontStyle: "italic" }}>
                     Hidden Talent
                   </em>
                 </motion.h1>
+
+                {/* Subheading */}
                 <motion.p
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -484,7 +496,7 @@ export default function ProgramsPage() {
                   style={{
                     fontSize: isMobile ? 14 : 16,
                     lineHeight: 1.75,
-                    color: "rgba(240,238,232,0.5)",
+                    color: "#6b5e52",
                     margin: 0,
                     maxWidth: 520,
                     fontFamily: "'DM Sans', sans-serif",
@@ -496,7 +508,7 @@ export default function ProgramsPage() {
                 </motion.p>
               </div>
 
-              {/* Stats - Hidden on mobile */}
+              {/* Stats — desktop only */}
               {!isMobile && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
@@ -506,11 +518,7 @@ export default function ProgramsPage() {
                     delay: 0.22,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 14,
-                  }}
+                  style={{ display: "flex", flexDirection: "column", gap: 14 }}
                 >
                   {[
                     ["9", "Programs"],
@@ -523,7 +531,7 @@ export default function ProgramsPage() {
                           fontFamily: "'Playfair Display', serif",
                           fontSize: 28,
                           fontWeight: 900,
-                          color: "#F0EEE8",
+                          color: "#1c1510",
                           lineHeight: 1,
                         }}
                       >
@@ -532,7 +540,7 @@ export default function ProgramsPage() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(240,238,232,0.35)",
+                          color: "#9c876e",
                           marginTop: 2,
                           fontFamily: "'DM Sans', sans-serif",
                         }}
@@ -548,16 +556,19 @@ export default function ProgramsPage() {
         </motion.div>
       </div>
 
-      {/* ── Filter tabs ── */}
+      {/* ── Filter tabs ────────────────────────────────────────────────── */}
       <div
         style={{
           position: "sticky",
           top: 72,
           zIndex: 10,
-          background: "rgba(8,9,26,0.92)",
+          /* Frosted cream strip */
+          background: "rgba(253,250,246,0.92)",
           backdropFilter: "blur(16px)",
-          borderBottom: "0.5px solid rgba(255,255,255,0.07)",
-          borderTop: "0.5px solid rgba(255,255,255,0.07)",
+          WebkitBackdropFilter: "blur(16px)",
+          borderBottom: "0.5px solid #ede6dc",
+          borderTop: "0.5px solid #ede6dc",
+          boxShadow: "0 4px 20px rgba(180,140,80,0.06)",
         }}
       >
         <div
@@ -576,63 +587,61 @@ export default function ProgramsPage() {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {CATEGORIES.map((cat) => (
-              <motion.button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  position: "relative",
-                  background:
-                    activeCategory === cat.id
-                      ? "rgba(43,94,255,0.12)"
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <motion.button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{
+                    position: "relative",
+                    background: isActive
+                      ? "rgba(217,119,6,0.1)"
                       : "transparent",
-                  border:
-                    activeCategory === cat.id
-                      ? "0.5px solid rgba(43,94,255,0.35)"
-                      : "0.5px solid rgba(255,255,255,0.08)",
-                  borderRadius: 100,
-                  padding: "8px 18px",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color:
-                    activeCategory === cat.id
-                      ? "#7EB3FF"
-                      : "rgba(240,238,232,0.45)",
-                  cursor: "pointer",
-                  fontFamily: "'DM Sans', sans-serif",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.2s",
-                  letterSpacing: "0.3px",
-                  flexShrink: 0,
-                }}
-              >
-                {cat.label}
-                {activeCategory === cat.id && (
-                  <motion.span
-                    layoutId="filter-pill"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: 100,
-                      background: "rgba(43,94,255,0.08)",
-                      zIndex: -1,
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </motion.button>
-            ))}
+                    border: isActive
+                      ? "0.5px solid rgba(217,119,6,0.35)"
+                      : "0.5px solid #ede6dc",
+                    borderRadius: 100,
+                    padding: "8px 18px",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: isActive ? "#d97706" : "#9c876e",
+                    cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif",
+                    whiteSpace: "nowrap",
+                    transition: "all 0.2s",
+                    letterSpacing: "0.3px",
+                    flexShrink: 0,
+                  }}
+                >
+                  {cat.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="filter-pill"
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 100,
+                        background: "rgba(217,119,6,0.06)",
+                        zIndex: -1,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* ── Masonry Bento Grid ── */}
+      {/* ── Masonry Bento Grid ─────────────────────────────────────────── */}
       <div
         style={{
           maxWidth: 1400,
@@ -661,13 +670,13 @@ export default function ProgramsPage() {
                 program={program}
                 index={index}
                 onClick={() => handleCardClick(program)}
-                style={getGridStyle(program.size, index)}
+                style={getGridStyle(program.size)}
               />
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* ── CTA strip ── */}
+        {/* ── CTA strip ──────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -676,9 +685,11 @@ export default function ProgramsPage() {
           style={{
             marginTop: 72,
             padding: isMobile ? "32px 24px" : "48px 56px",
-            background: "rgba(43,94,255,0.06)",
-            border: "0.5px solid rgba(43,94,255,0.2)",
+            /* Warm cream card with gold border */
+            background: "#fff",
+            border: "1px solid #ede6dc",
             borderRadius: 16,
+            boxShadow: "0 8px 40px rgba(180,140,80,0.08)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -688,14 +699,20 @@ export default function ProgramsPage() {
             textAlign: isMobile ? "center" : "left",
           }}
         >
-          <div>
+          {/* Left — gold accent bar */}
+          <div
+            style={{
+              borderLeft: isMobile ? "none" : "3px solid #f59e0b",
+              paddingLeft: isMobile ? 0 : 24,
+            }}
+          >
             <div
               style={{
                 fontSize: 10,
                 fontWeight: 700,
                 letterSpacing: "2.5px",
                 textTransform: "uppercase",
-                color: "#C9A84C",
+                color: "#d97706",
                 marginBottom: 10,
                 fontFamily: "'DM Sans', sans-serif",
               }}
@@ -707,7 +724,7 @@ export default function ProgramsPage() {
                 fontFamily: "'Playfair Display', serif",
                 fontSize: isMobile ? 24 : 28,
                 fontWeight: 900,
-                color: "#F0EEE8",
+                color: "#1c1510",
                 margin: "0 0 8px",
                 letterSpacing: "-0.5px",
                 lineHeight: 1.15,
@@ -718,7 +735,7 @@ export default function ProgramsPage() {
             <p
               style={{
                 fontSize: 14,
-                color: "rgba(240,238,232,0.5)",
+                color: "#6b5e52",
                 margin: 0,
                 maxWidth: 420,
                 lineHeight: 1.7,
@@ -730,6 +747,8 @@ export default function ProgramsPage() {
               conversation.
             </p>
           </div>
+
+          {/* Right — CTA buttons */}
           <div
             style={{
               display: "flex",
@@ -745,11 +764,11 @@ export default function ProgramsPage() {
               style={{ textDecoration: "none" }}
             >
               <motion.button
-                whileHover={{ scale: 1.04, background: "#b8962e" }}
+                whileHover={{ scale: 1.04, background: "#b45309" }}
                 whileTap={{ scale: 0.97 }}
                 style={{
-                  background: "#C9A84C",
-                  color: "#08091A",
+                  background: "#d97706",
+                  color: "#fff",
                   border: "none",
                   borderRadius: 8,
                   padding: "13px 26px",
@@ -757,6 +776,7 @@ export default function ProgramsPage() {
                   fontWeight: 700,
                   cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif",
+                  boxShadow: "0 4px 16px rgba(217,119,6,0.22)",
                 }}
               >
                 Book a Discovery Session
@@ -771,14 +791,14 @@ export default function ProgramsPage() {
               <motion.button
                 whileHover={{
                   scale: 1.04,
-                  borderColor: "rgba(37,211,102,0.4)",
-                  color: "#25D366",
+                  borderColor: "rgba(37,211,102,0.5)",
+                  color: "#16a34a",
                 }}
                 whileTap={{ scale: 0.97 }}
                 style={{
                   background: "transparent",
-                  color: "rgba(240,238,232,0.6)",
-                  border: "0.5px solid rgba(255,255,255,0.15)",
+                  color: "#6b5e52",
+                  border: "0.5px solid #ede6dc",
                   borderRadius: 8,
                   padding: "13px 26px",
                   fontSize: 14,
@@ -801,14 +821,12 @@ export default function ProgramsPage() {
   );
 }
 
-// ── Masonry Card Component ────────────────────────────────────
+// ── Masonry Card ─────────────────────────────────────────────
 function MasonryCard({ program, index, onClick, style }) {
   const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef(null);
 
   return (
     <motion.div
-      ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -823,24 +841,23 @@ function MasonryCard({ program, index, onClick, style }) {
         borderRadius: 16,
         overflow: "hidden",
         cursor: "pointer",
-        background: "#0D0E24",
-        border: `0.5px solid rgba(255,255,255,0.08)`,
+        /* Warm parchment card base */
+        background: "#f5ede0",
+        border: `1px solid #ede6dc`,
         minHeight: 300,
+        boxShadow: "0 2px 12px rgba(180,140,80,0.07)",
       }}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: "0 12px 40px rgba(180,140,80,0.16)",
+      }}
       whileTap={{ scale: 0.98 }}
     >
       {/* Image */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          overflow: "hidden",
-        }}
-      >
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
         {PROGRAM_IMAGES[program.id] ? (
           <motion.img
             src={PROGRAM_IMAGES[program.id]}
@@ -854,47 +871,33 @@ function MasonryCard({ program, index, onClick, style }) {
             animate={{
               scale: isHovered ? 1.08 : 1,
               filter: isHovered
-                ? "brightness(0.7) saturate(1.2)"
-                : "brightness(0.5) saturate(0.8)",
+                ? "brightness(0.72) saturate(1.1)"
+                : "brightness(0.82) saturate(0.75) sepia(0.12)",
             }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           />
         ) : (
-          // Placeholder gradient
           <div
             style={{
               width: "100%",
               height: "100%",
-              background: `linear-gradient(135deg, ${program.colorDim}, rgba(8,9,26,0.8))`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              background: `linear-gradient(135deg, ${program.colorDim}, rgba(253,250,246,0.9))`,
             }}
-          >
-            <div
-              style={{
-                color: program.color,
-                opacity: 0.3,
-                transform: "scale(2)",
-              }}
-            >
-              {program.icon}
-            </div>
-          </div>
+          />
         )}
       </div>
 
-      {/* Dark scrim gradient */}
+      {/* Warm cream-to-transparent scrim — replaces dark navy scrim */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(to top, rgba(8,9,26,0.95) 0%, rgba(8,9,26,0.4) 50%, rgba(8,9,26,0.1) 100%)",
+            "linear-gradient(to top, rgba(28,21,16,0.88) 0%, rgba(28,21,16,0.35) 55%, rgba(28,21,16,0.05) 100%)",
         }}
       />
 
-      {/* Color accent glow on hover */}
+      {/* Per-program colour glow on hover */}
       <motion.div
         style={{
           position: "absolute",
@@ -950,7 +953,7 @@ function MasonryCard({ program, index, onClick, style }) {
           {program.name}
         </motion.h3>
 
-        {/* Tagline - shows on hover */}
+        {/* Tagline on hover */}
         <motion.p
           animate={{
             opacity: isHovered ? 1 : 0,
@@ -960,7 +963,7 @@ function MasonryCard({ program, index, onClick, style }) {
           transition={{ duration: 0.3 }}
           style={{
             fontSize: 13,
-            color: "rgba(240,238,232,0.6)",
+            color: "rgba(253,250,246,0.75)",
             margin: 0,
             lineHeight: 1.5,
             fontFamily: "'DM Sans', sans-serif",

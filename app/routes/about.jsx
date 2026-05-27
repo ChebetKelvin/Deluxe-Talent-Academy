@@ -1,494 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-/* ─── Font + Style injection ─────────────────────────────────────────────── */
 const FONTS_URL =
-  "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,300;1,400;1,600&family=Nunito:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap";
 
-const STYLES = `
-:root {
-  --cream: #faf5eb;
-  --cream2: #f5ede0;
-  --amber: #d97706;
-  --amber-light: #fde68a;
-  --amber-pale: #fffbf0;
-  --ink: #1a1208;
-  --ink2: #3d2e1a;
-  --ink3: #6b5230;
-  --ink4: #9a7a50;
-  --rule: rgba(180,130,60,0.2);
-  --tape: rgba(251,191,36,0.35);
-}
-
-@keyframes ap-reveal    { from{opacity:0;transform:translateY(22px)}  to{opacity:1;transform:translateY(0)} }
-@keyframes ap-revealL   { from{opacity:0;transform:translateX(-22px)} to{opacity:1;transform:translateX(0)} }
-@keyframes ap-revealR   { from{opacity:0;transform:translateX(22px)}  to{opacity:1;transform:translateX(0)} }
-@keyframes ap-scaleIn   { from{opacity:0;transform:scale(0.96)}        to{opacity:1;transform:scale(1)} }
-@keyframes ap-ticker    { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-.ap-r0  { opacity:0 } .ap-r0.ap-on  { animation: ap-reveal  .8s cubic-bezier(.16,1,.3,1) forwards }
-.ap-rl  { opacity:0 } .ap-rl.ap-on  { animation: ap-revealL .8s cubic-bezier(.16,1,.3,1) forwards }
-.ap-rr  { opacity:0 } .ap-rr.ap-on  { animation: ap-revealR .8s cubic-bezier(.16,1,.3,1) forwards }
-.ap-rs  { opacity:0 } .ap-rs.ap-on  { animation: ap-scaleIn .7s cubic-bezier(.16,1,.3,1) forwards }
-.ap-d1 { animation-delay:.08s } .ap-d2 { animation-delay:.16s }
-.ap-d3 { animation-delay:.24s } .ap-d4 { animation-delay:.32s }
-.ap-d5 { animation-delay:.42s }
-
-/* paper grid */
-.ap-section {
-  background: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  color: var(--ink);
-  overflow-x: hidden;
-}
-.ap-section::before {
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(180,130,60,0.06) 27px,rgba(180,130,60,0.06) 28px),
-    repeating-linear-gradient(90deg,transparent,transparent 27px,rgba(180,130,60,0.03) 27px,rgba(180,130,60,0.03) 28px);
-}
-
-/* ── HERO ── */
-.ap-hero {
-  position:relative;z-index:1;
-  padding:80px 64px 60px;
-  border-bottom:1px solid var(--rule);
-  background:var(--amber-pale);
-  overflow:hidden;
-}
-.ap-hero::after {
-  content:'';position:absolute;right:-60px;top:-60px;
-  width:320px;height:320px;border-radius:50%;
-  background:rgba(217,119,6,0.07);pointer-events:none;
-}
-.ap-overline {
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:10px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:24px;
-}
-.ap-dash { width:28px;height:1.5px;background:var(--amber) }
-.ap-hero-headline {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(52px,7vw,96px);font-weight:700;
-  line-height:.96;letter-spacing:-.03em;color:var(--ink);margin-bottom:28px;
-}
-.ap-hero-headline em {
-  font-style:italic;font-weight:400;color:var(--amber);display:block;
-  font-size:clamp(44px,5.5vw,80px);
-}
-.ap-hero-sub {
-  font-family:'Lora',serif;font-size:17px;font-style:italic;
-  line-height:1.85;color:var(--ink3);max-width:480px;
-  border-left:2px solid var(--amber-light);padding-left:18px;
-}
-.ap-stamp {
-  position:absolute;right:80px;bottom:40px;
-  width:100px;height:100px;border-radius:50%;
-  border:2px solid var(--amber);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  opacity:.4;transform:rotate(12deg);
-}
-.ap-stamp-year {
-  font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--amber);line-height:1;
-}
-.ap-stamp-text { font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--amber) }
-
-/* ── TICKER ── */
-.ap-ticker-wrap {
-  overflow:hidden;
-  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
-  padding:10px 0;background:var(--cream2);position:relative;z-index:1;
-}
-.ap-ticker-track {
-  display:flex;gap:0;white-space:nowrap;
-  animation:ap-ticker 28s linear infinite;
-}
-.ap-ticker-item {
-  display:inline-flex;align-items:center;gap:14px;padding:0 32px;
-  font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink4);
-}
-.ap-ticker-dot { width:4px;height:4px;border-radius:50%;background:var(--amber);flex-shrink:0 }
-
-/* ── FOUNDING ── */
-.ap-founding {
-  display:grid;grid-template-columns:1fr 1fr;
-  border-bottom:1px solid var(--rule);min-height:520px;
-  position:relative;z-index:1;
-}
-.ap-founding-left {
-  padding:72px 60px 64px;
-  border-right:1px solid var(--rule);position:relative;
-}
-.ap-founding-right {
-  padding:72px 56px 64px;background:var(--cream2);
-  position:relative;display:flex;flex-direction:column;justify-content:center;
-}
-.ap-beat-num {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(100px,14vw,160px);font-weight:700;line-height:.85;
-  color:rgba(217,119,6,0.1);letter-spacing:-.04em;
-  position:absolute;top:28px;left:40px;pointer-events:none;user-select:none;
-}
-.ap-beat-label {
-  font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--amber);margin-bottom:16px;position:relative;z-index:1;
-}
-.ap-beat-headline {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(28px,3.5vw,44px);font-weight:600;line-height:1.1;letter-spacing:-.02em;
-  color:var(--ink);margin-bottom:18px;position:relative;z-index:1;
-}
-.ap-beat-headline em { font-style:italic;font-weight:400;color:var(--amber) }
-.ap-beat-body {
-  font-family:'Lora',serif;font-size:15px;line-height:1.85;
-  color:var(--ink2);position:relative;z-index:1;max-width:380px;
-}
-.ap-tape {
-  display:inline-block;background:var(--tape);padding:2px 10px;
-  transform:rotate(-1.5deg);
-  font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--ink3);margin-bottom:12px;
-}
-.ap-pull-quote {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(22px,3vw,32px);font-style:italic;font-weight:400;
-  line-height:1.35;color:var(--ink);
-  border-top:2px solid var(--amber);padding-top:20px;margin-bottom:20px;
-}
-.ap-pull-quote::before {
-  content:'\\201C';font-size:64px;line-height:.5;color:var(--amber);
-  display:block;margin-bottom:8px;font-weight:700;
-}
-.ap-pull-attr { font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4) }
-
-/* ── MISSION (dark) ── */
-.ap-mission {
-  padding:88px 64px;background:var(--ink);position:relative;overflow:hidden;z-index:1;
-}
-.ap-mission::before {
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 50%,rgba(217,119,6,0.12) 0%,transparent 60%),
-    radial-gradient(ellipse 40% 60% at 85% 50%,rgba(217,119,6,0.06) 0%,transparent 60%);
-  pointer-events:none;
-}
-.ap-mission-inner { max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1 }
-.ap-mission-label {
-  font-size:10px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(253,230,138,0.6);margin-bottom:28px;
-}
-.ap-mission-statement {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(28px,4.5vw,56px);font-weight:500;line-height:1.18;letter-spacing:-.02em;
-  color:#faf5eb;margin-bottom:32px;
-}
-.ap-mission-statement em { font-style:italic;font-weight:300;color:var(--amber-light) }
-.ap-pillars {
-  display:flex;justify-content:center;gap:0;
-  border-top:1px solid rgba(255,255,255,0.08);padding-top:36px;
-}
-.ap-pillar { padding:0 36px;border-right:1px solid rgba(255,255,255,0.08);text-align:center }
-.ap-pillar:last-child { border-right:none }
-.ap-pillar-icon { font-size:22px;margin-bottom:10px }
-.ap-pillar-name { font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--amber-light);margin-bottom:6px }
-.ap-pillar-desc { font-size:12px;color:rgba(250,245,235,0.45);line-height:1.6 }
-
-/* ── MILESTONES ── */
-.ap-milestones {
-  padding:80px 64px 72px;border-bottom:1px solid var(--rule);
-  background:var(--amber-pale);position:relative;z-index:1;
-}
-.ap-ms-header { margin-bottom:56px }
-.ap-ms-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:0 }
-.ap-ms-item {
-  padding:28px 36px 32px;
-  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
-  position:relative;transition:background .3s ease;
-}
-.ap-ms-item:nth-child(3n)   { border-right:none }
-.ap-ms-item:nth-child(n+4)  { border-bottom:none }
-.ap-ms-item:hover { background:rgba(217,119,6,0.04) }
-.ap-ms-year {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(40px,5vw,60px);font-weight:700;line-height:1;
-  color:rgba(217,119,6,0.18);letter-spacing:-.03em;margin-bottom:8px;
-}
-.ap-ms-title { font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:8px }
-.ap-ms-desc  { font-size:13px;line-height:1.7;color:var(--ink3) }
-.ap-ms-badge { position:absolute;top:24px;right:20px;width:8px;height:8px;border-radius:50%;background:var(--amber);opacity:.5 }
-
-/* ── TEAM ── */
-.ap-team {
-  display:grid;grid-template-columns:380px 1fr;
-  border-bottom:1px solid var(--rule);min-height:480px;position:relative;z-index:1;
-}
-.ap-team-left  { padding:72px 60px 64px;border-right:1px solid var(--rule);background:var(--cream2) }
-.ap-team-right { padding:64px 60px;display:grid;grid-template-columns:1fr 1fr;gap:0;align-content:start }
-.ap-team-card {
-  padding:28px 28px 32px;
-  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
-}
-.ap-team-card:nth-child(2n)      { border-right:none }
-.ap-team-card:nth-last-child(-n+2){ border-bottom:none }
-.ap-tc-initial {
-  width:60px;height:60px;border-radius:50%;
-  background:linear-gradient(135deg,rgba(217,119,6,.15),rgba(217,119,6,.05));
-  border:2px solid rgba(217,119,6,.2);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:22px;font-weight:600;
-  color:var(--amber);margin-bottom:14px;
-}
-.ap-tc-name { font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:3px }
-.ap-tc-role { font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px }
-.ap-tc-note { font-family:'Lora',serif;font-size:13px;font-style:italic;line-height:1.65;color:var(--ink3) }
-
-/* ── VISION ── */
-.ap-vision { padding:96px 64px;background:var(--cream);position:relative;overflow:hidden;z-index:1 }
-.ap-vision-inner {
-  max-width:1000px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;
-}
-.ap-vision-num {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(120px,16vw,200px);font-weight:700;line-height:.85;letter-spacing:-.05em;
-  color:rgba(217,119,6,0.07);position:absolute;left:40px;bottom:40px;
-  pointer-events:none;user-select:none;
-}
-.ap-promises { display:flex;flex-direction:column;gap:18px }
-.ap-promise {
-  display:flex;align-items:flex-start;gap:14px;padding:18px 20px;
-  background:#fff;border:1px solid var(--rule);border-radius:4px;
-  position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;
-}
-.ap-promise:hover { transform:translateX(4px);box-shadow:inset 3px 0 0 var(--amber) }
-.ap-promise-num { font-family:'Playfair Display',serif;font-size:13px;font-weight:600;color:var(--amber);min-width:22px;margin-top:1px }
-.ap-promise-text { font-size:14px;line-height:1.65;color:var(--ink2) }
-.ap-promise-text strong { font-weight:500;color:var(--ink) }
-
-/* ── MANIFESTO ── */
-.ap-manifesto {
-  padding:80px 64px 96px;background:var(--cream2);
-  border-top:1px solid var(--rule);text-align:center;position:relative;overflow:hidden;z-index:1;
-}
-.ap-manifesto-headline {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.05;letter-spacing:-.03em;
-  color:var(--ink);margin-bottom:24px;
-}
-.ap-manifesto-headline em { font-style:italic;font-weight:300;color:var(--amber) }
-.ap-manifesto-body {
-  font-family:'Lora',serif;font-size:16px;font-style:italic;line-height:1.9;
-  color:var(--ink3);max-width:640px;margin:0 auto 40px;
-}
-.ap-sig      { font-family:'Playfair Display',serif;font-size:28px;font-style:italic;color:var(--amber);margin-bottom:4px }
-.ap-sig-sub  { font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink4) }
-
-/* ── MOBILE RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .ap-team { grid-template-columns: 1fr; }
-  .ap-team-left { border-right: none; border-bottom: 1px solid var(--rule); padding: 48px 32px 40px; }
-  .ap-team-right { grid-template-columns: 1fr; padding: 40px 32px; }
-  .ap-team-card { border-right: none; }
-  .ap-team-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
-  .ap-team-card:last-child { border-bottom: none; }
-  
-  .ap-vision-inner { grid-template-columns: 1fr; gap: 48px; }
-  .ap-vision-num { font-size: 100px; left: 20px; bottom: 20px; }
-}
-
-@media (max-width: 768px) {
-  .ap-hero {
-    padding: 60px 24px 48px;
-  }
-  .ap-hero-headline {
-    font-size: clamp(36px, 10vw, 56px);
-    margin-bottom: 20px;
-  }
-  .ap-hero-headline em {
-    font-size: clamp(32px, 8vw, 48px);
-  }
-  .ap-hero-sub {
-    font-size: 15px;
-    max-width: 100%;
-    padding-left: 14px;
-  }
-  .ap-stamp {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 32px;
-    transform: rotate(6deg);
-    width: 80px;
-    height: 80px;
-  }
-  .ap-stamp-year { font-size: 22px; }
-  
-  .ap-founding {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  .ap-founding-left {
-    padding: 48px 24px 40px;
-    border-right: none;
-    border-bottom: 1px solid var(--rule);
-  }
-  .ap-founding-right {
-    padding: 40px 24px 48px;
-  }
-  .ap-beat-num {
-    font-size: 80px;
-    top: 20px;
-    left: 16px;
-  }
-  .ap-beat-headline {
-    font-size: clamp(24px, 6vw, 32px);
-  }
-  
-  .ap-mission {
-    padding: 60px 24px;
-  }
-  .ap-pillars {
-    flex-direction: column;
-    gap: 24px;
-  }
-  .ap-pillar {
-    padding: 0;
-    border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding-bottom: 24px;
-  }
-  .ap-pillar:last-child { border-bottom: none; padding-bottom: 0; }
-  
-  .ap-milestones {
-    padding: 48px 24px 56px;
-  }
-  .ap-ms-grid {
-    grid-template-columns: 1fr;
-  }
-  .ap-ms-item {
-    border-right: none;
-    padding: 24px 20px 28px;
-  }
-  .ap-ms-item:nth-child(n+4) { border-bottom: 1px solid var(--rule); }
-  .ap-ms-item:last-child { border-bottom: none; }
-  
-  .ap-team-left { padding: 48px 24px 40px; }
-  .ap-team-right { padding: 32px 24px; }
-  
-  .ap-vision {
-    padding: 60px 24px;
-  }
-  .ap-vision-inner { gap: 32px; }
-  .ap-vision-num {
-    font-size: 80px;
-    position: relative;
-    left: auto;
-    bottom: auto;
-    margin-bottom: 24px;
-  }
-  
-  .ap-manifesto {
-    padding: 60px 24px 72px;
-  }
-  .ap-manifesto-headline {
-    font-size: clamp(28px, 7vw, 42px);
-  }
-  .ap-manifesto-body {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .ap-hero {
-    padding: 48px 16px 40px;
-  }
-  .ap-hero-headline {
-    font-size: clamp(32px, 9vw, 44px);
-  }
-  .ap-hero-headline em {
-    font-size: clamp(28px, 7vw, 38px);
-  }
-  .ap-hero-sub {
-    font-size: 14px;
-  }
-  
-  .ap-overine {
-    font-size: 9px;
-    gap: 6px;
-  }
-  .ap-dash { width: 20px; }
-  
-  .ap-ticker-item {
-    padding: 0 20px;
-    font-size: 10px;
-    gap: 10px;
-  }
-  
-  .ap-founding-left,
-  .ap-founding-right {
-    padding: 40px 16px 32px;
-  }
-  .ap-beat-num {
-    font-size: 60px;
-    top: 16px;
-    left: 12px;
-  }
-  .ap-beat-body {
-    font-size: 14px;
-  }
-  
-  .ap-mission {
-    padding: 48px 16px;
-  }
-  .ap-mission-statement {
-    font-size: clamp(24px, 6vw, 32px);
-  }
-  
-  .ap-milestones {
-    padding: 40px 16px 48px;
-  }
-  .ap-ms-header { margin-bottom: 32px; }
-  .ap-ms-year {
-    font-size: clamp(32px, 8vw, 48px);
-  }
-  
-  .ap-team-left {
-    padding: 40px 16px 32px;
-  }
-  .ap-team-right {
-    padding: 24px 16px;
-  }
-  .ap-team-card {
-    padding: 20px 16px 24px;
-  }
-  
-  .ap-vision {
-    padding: 48px 16px;
-  }
-  .ap-promise {
-    padding: 14px 16px;
-  }
-  .ap-promise-text {
-    font-size: 13px;
-  }
-  
-  .ap-manifesto {
-    padding: 48px 16px 64px;
-  }
-}
-`;
-
-/* ─── Data ───────────────────────────────────────────────────────────────── */
-const TICKER_WORDS = [
-  "Curiosity",
-  "Confidence",
-  "Leadership",
-  "Innovation",
-  "Creativity",
-  "Teamwork",
-  "Purpose",
-  "Growth",
-  "Courage",
-  "Discovery",
-];
+/* ─── Unsplash images mapped to sections ────────────────────────────────── */
+const IMGS = {
+  hero: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=1800&fit=crop&q=80",
+  founding:
+    "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=1000&fit=crop&q=80",
+  mission:
+    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1400&fit=crop&q=80",
+  robotics:
+    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=900&fit=crop&q=80",
+  culinary:
+    "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&fit=crop&q=80",
+  sports:
+    "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=900&fit=crop&q=80",
+  arts: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=900&fit=crop&q=80",
+  team: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&fit=crop&q=80",
+  vision:
+    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1400&fit=crop&q=80",
+};
 
 const MILESTONES = [
   {
@@ -498,7 +30,7 @@ const MILESTONES = [
   },
   {
     year: "2021",
-    title: "First Cohort Completes",
+    title: "First Cohort",
     desc: "Our pilot students finish their programs. Three win regional STEM competitions.",
   },
   {
@@ -509,7 +41,7 @@ const MILESTONES = [
   {
     year: "2023",
     title: "School Partnerships",
-    desc: "Partnered with 5+ schools across Meru and surrounding areas, bringing programs directly to students.",
+    desc: "Partnered with 5+ schools across Meru and surrounding areas.",
   },
   {
     year: "2024",
@@ -550,58 +82,784 @@ const TEAM = [
   },
 ];
 
+const PROGRAMS_GRID = [
+  { img: IMGS.robotics, label: "Robotics & Coding" },
+  { img: IMGS.culinary, label: "Culinary Arts" },
+  { img: IMGS.sports, label: "Football & Sports" },
+  { img: IMGS.arts, label: "Visual Media & Arts" },
+];
+
 const PROMISES = [
   {
-    n: "01.",
-    text: (
-      <>
-        Expand to <strong>5 cities</strong> across East Africa by 2027, starting
-        with Mombasa and Kisumu.
-      </>
-    ),
+    n: "01",
+    text: "Expand to 5 cities across East Africa by 2027, starting with Mombasa and Kisumu.",
   },
   {
-    n: "02.",
-    text: (
-      <>
-        <strong>Launch digital programs</strong> so children outside Nairobi can
-        access expert mentors remotely.
-      </>
-    ),
+    n: "02",
+    text: "Launch digital programs so children outside Nairobi can access expert mentors remotely.",
   },
   {
-    n: "03.",
-    text: (
-      <>
-        <strong>100 school partnerships</strong> — bringing our programs into
-        the timetable, not just after it.
-      </>
-    ),
+    n: "03",
+    text: "100 school partnerships — bringing programs into the timetable, not just after it.",
   },
   {
-    n: "04.",
-    text: (
-      <>
-        A <strong>scholarship program</strong> ensuring cost is never the reason
-        a child misses out.
-      </>
-    ),
+    n: "04",
+    text: "A scholarship program ensuring cost is never the reason a child misses out.",
   },
   {
-    n: "05.",
-    text: (
-      <>
-        <strong>10,000 learners</strong> who grew into confident, creative,
-        capable young people.
-      </>
-    ),
+    n: "05",
+    text: "10,000 learners who grow into confident, creative, capable young people.",
   },
 ];
 
-/* ─── Hooks ──────────────────────────────────────────────────────────────── */
+/* ─── Styles ─────────────────────────────────────────────────────────────── */
+const STYLES = `
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.ab-root {
+  background: #fdfaf6;
+  font-family: 'Nunito', sans-serif;
+  color: #1c1510;
+  overflow-x: hidden;
+}
+
+/* ── reveal animations ── */
+@keyframes ab-up   { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ab-left { from{opacity:0;transform:translateX(-36px)} to{opacity:1;transform:translateX(0)} }
+@keyframes ab-right{ from{opacity:0;transform:translateX(36px)}  to{opacity:1;transform:translateX(0)} }
+@keyframes ab-scale{ from{opacity:0;transform:scale(0.94)}       to{opacity:1;transform:scale(1)} }
+@keyframes ab-fade { from{opacity:0} to{opacity:1} }
+
+.ab-rv   { opacity:0 } .ab-rv.on   { animation: ab-up    .85s cubic-bezier(.16,1,.3,1) forwards }
+.ab-rvl  { opacity:0 } .ab-rvl.on  { animation: ab-left  .85s cubic-bezier(.16,1,.3,1) forwards }
+.ab-rvr  { opacity:0 } .ab-rvr.on  { animation: ab-right .85s cubic-bezier(.16,1,.3,1) forwards }
+.ab-rvs  { opacity:0 } .ab-rvs.on  { animation: ab-scale .8s  cubic-bezier(.16,1,.3,1) forwards }
+.ab-rvf  { opacity:0 } .ab-rvf.on  { animation: ab-fade  .9s  ease forwards }
+.d1{animation-delay:.08s} .d2{animation-delay:.16s} .d3{animation-delay:.26s}
+.d4{animation-delay:.36s} .d5{animation-delay:.46s}
+
+/* ════════════════════════════════════════════════
+   1. HERO — full bleed cinematic
+════════════════════════════════════════════════ */
+.ab-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.ab-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: saturate(0.9) brightness(0.7);
+}
+.ab-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10,6,2,0.88) 0%,
+    rgba(10,6,2,0.4)  45%,
+    rgba(10,6,2,0.15) 100%
+  );
+}
+.ab-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 72px 72px;
+  max-width: 1100px;
+}
+.ab-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(217,119,6,0.2);
+  border: 1px solid rgba(217,119,6,0.4);
+  border-radius: 99px;
+  padding: 6px 16px 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fde68a;
+  margin-bottom: 28px;
+}
+.ab-hero-pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #d97706;
+}
+.ab-hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #fdfaf6;
+  margin-bottom: 28px;
+}
+.ab-hero-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: #fde68a;
+  display: block;
+}
+.ab-hero-sub {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(253,250,246,0.72);
+  max-width: 520px;
+  margin-bottom: 40px;
+}
+.ab-hero-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(253,250,246,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  background: rgba(253,250,246,0.07);
+  width: fit-content;
+}
+.ab-hero-stat {
+  padding: 16px 32px;
+  border-right: 1px solid rgba(253,250,246,0.12);
+  text-align: center;
+}
+.ab-hero-stat:last-child { border-right: none; }
+.ab-hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fdfaf6;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.ab-hero-stat-num span { color: #d97706; }
+.ab-hero-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(253,250,246,0.45);
+}
+.ab-hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  right: 72px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(253,250,246,0.35);
+}
+.ab-hero-scroll-line {
+  width: 40px;
+  height: 1px;
+  background: rgba(253,250,246,0.25);
+}
+
+/* ════════════════════════════════════════════════
+   2. ORIGIN — image left, text right
+════════════════════════════════════════════════ */
+.ab-origin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+}
+.ab-origin-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.ab-origin-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+.ab-origin-img-wrap:hover .ab-origin-img { transform: scale(1.04); }
+.ab-origin-img-cap {
+  position: absolute;
+  bottom: 24px; left: 24px;
+  background: rgba(253,250,246,0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ede6dc;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #92400e;
+}
+.ab-origin-text {
+  padding: 80px 72px;
+  background: #fdfaf6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ab-section-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ab-section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 2px;
+  background: #d97706;
+  flex-shrink: 0;
+}
+.ab-section-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1c1510;
+  margin-bottom: 24px;
+}
+.ab-section-h2 em { font-style: italic; font-weight: 400; color: #d97706; }
+.ab-body-text {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #6b5e52;
+  margin-bottom: 20px;
+  max-width: 440px;
+}
+.ab-pull-quote {
+  border-left: 3px solid #d97706;
+  padding: 16px 24px;
+  background: #fffbf0;
+  border-radius: 0 8px 8px 0;
+  margin-top: 32px;
+}
+.ab-pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #1c1510;
+  margin-bottom: 8px;
+}
+.ab-pull-quote cite {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9c876e;
+  font-style: normal;
+}
+
+/* ════════════════════════════════════════════════
+   3. MISSION — full bleed with image
+════════════════════════════════════════════════ */
+.ab-mission {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.ab-mission-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) brightness(0.5);
+}
+.ab-mission-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(10,6,2,0.92) 0%, rgba(10,6,2,0.65) 55%, rgba(10,6,2,0.4) 100%);
+}
+.ab-mission-content {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  padding: 96px 72px;
+}
+.ab-mission-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(253,230,138,0.7);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ab-mission-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: rgba(253,230,138,0.5);
+}
+.ab-mission-statement {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fdfaf6;
+  margin-bottom: 48px;
+}
+.ab-mission-statement em {
+  font-style: italic;
+  color: #fde68a;
+}
+.ab-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(253,250,246,0.1);
+  padding-top: 40px;
+}
+.ab-pillar {
+  padding: 0 28px 0 0;
+  border-right: 1px solid rgba(253,250,246,0.1);
+}
+.ab-pillar:first-child { padding-left: 0; }
+.ab-pillar:last-child { border-right: none; }
+.ab-pillar-icon { font-size: 20px; margin-bottom: 10px; }
+.ab-pillar-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #fde68a;
+  margin-bottom: 6px;
+}
+.ab-pillar-desc {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(253,250,246,0.45);
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════════════════════
+   4. PROGRAMS MOSAIC
+════════════════════════════════════════════════ */
+.ab-programs {
+  padding: 96px 72px;
+  background: #fdfaf6;
+}
+.ab-programs-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+.ab-programs-header-left { max-width: 480px; }
+.ab-programs-count {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(64px, 9vw, 120px);
+  font-weight: 900;
+  line-height: 0.85;
+  color: rgba(217,119,6,0.1);
+  letter-spacing: -0.04em;
+}
+.ab-mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 320px;
+  gap: 12px;
+}
+.ab-mosaic-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.ab-mosaic-item:first-child {
+  grid-column: span 2;
+}
+.ab-mosaic-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(.16,1,.3,1), filter 500ms ease;
+  filter: saturate(0.8) brightness(0.85);
+}
+.ab-mosaic-item:hover .ab-mosaic-img {
+  transform: scale(1.06);
+  filter: saturate(1) brightness(0.9);
+}
+.ab-mosaic-label-wrap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 48px 20px 20px;
+  background: linear-gradient(to top, rgba(10,6,2,0.75) 0%, transparent 100%);
+}
+.ab-mosaic-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fdfaf6;
+}
+
+/* ════════════════════════════════════════════════
+   5. MILESTONES — horizontal timeline
+════════════════════════════════════════════════ */
+.ab-timeline {
+  padding: 96px 72px;
+  background: #fffbf0;
+  border-top: 1px solid #ede6dc;
+  border-bottom: 1px solid #ede6dc;
+  overflow: hidden;
+}
+.ab-timeline-header { margin-bottom: 64px; }
+.ab-timeline-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+}
+.ab-timeline-track::before {
+  content: '';
+  position: absolute;
+  top: 18px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, #ede6dc, #d97706, #ede6dc);
+  z-index: 0;
+}
+.ab-tl-item {
+  position: relative;
+  z-index: 1;
+  padding-top: 48px;
+  padding-right: 24px;
+}
+.ab-tl-dot {
+  position: absolute;
+  top: 10px; left: 0;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fdfaf6;
+  border: 2px solid #d97706;
+  transition: background 300ms ease, transform 300ms ease;
+}
+.ab-tl-item:hover .ab-tl-dot {
+  background: #d97706;
+  transform: scale(1.25);
+}
+.ab-tl-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: rgba(217,119,6,0.25);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.ab-tl-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c1510;
+  margin-bottom: 8px;
+}
+.ab-tl-desc {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #6b5e52;
+  max-width: 160px;
+}
+
+/* ════════════════════════════════════════════════
+   6. TEAM — image banner + cards
+════════════════════════════════════════════════ */
+.ab-team {
+  background: #fdfaf6;
+}
+.ab-team-banner {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+}
+.ab-team-banner-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: saturate(0.7) brightness(0.55);
+}
+.ab-team-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(10,6,2,0.85) 0%, rgba(10,6,2,0.3) 100%);
+}
+.ab-team-banner-text {
+  position: absolute;
+  bottom: 48px; left: 72px;
+  z-index: 2;
+}
+.ab-team-banner-text .ab-section-eyebrow { color: rgba(253,230,138,0.8); }
+.ab-team-banner-text .ab-section-eyebrow::before { background: rgba(253,230,138,0.6); }
+.ab-team-banner-text .ab-section-h2 {
+  color: #fdfaf6;
+  margin-bottom: 0;
+}
+.ab-team-banner-text .ab-section-h2 em { color: #fde68a; }
+.ab-team-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid #ede6dc;
+}
+.ab-team-card {
+  padding: 36px 32px 40px;
+  border-right: 1px solid #ede6dc;
+  transition: background 300ms ease;
+}
+.ab-team-card:last-child { border-right: none; }
+.ab-team-card:hover { background: #fffbf0; }
+.ab-tc-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(217,119,6,0.18), rgba(217,119,6,0.06));
+  border: 2px solid rgba(217,119,6,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: #d97706;
+  margin-bottom: 16px;
+}
+.ab-tc-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px; font-weight: 600;
+  color: #1c1510;
+  margin-bottom: 4px;
+}
+.ab-tc-role {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 14px;
+}
+.ab-tc-rule {
+  width: 28px; height: 2px;
+  background: #ede6dc;
+  margin-bottom: 14px;
+  transition: width 300ms ease, background 300ms ease;
+}
+.ab-team-card:hover .ab-tc-rule {
+  width: 48px;
+  background: #d97706;
+}
+.ab-tc-note {
+  font-size: 13px; font-weight: 300;
+  line-height: 1.75;
+  color: #6b5e52;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════
+   7. VISION — image right, promises left
+════════════════════════════════════════════════ */
+.ab-vision {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+  border-top: 1px solid #ede6dc;
+}
+.ab-vision-text {
+  padding: 80px 72px;
+  background: #fdfaf6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ab-promises { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+.ab-promise {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid #ede6dc;
+  border-radius: 8px;
+  transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+.ab-promise:hover {
+  transform: translateX(6px);
+  border-color: rgba(217,119,6,0.35);
+  box-shadow: inset 3px 0 0 #d97706, 0 4px 16px rgba(180,140,80,0.08);
+}
+.ab-promise-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px; font-weight: 700;
+  color: #d97706;
+  min-width: 24px; margin-top: 2px;
+}
+.ab-promise-text {
+  font-size: 13px; font-weight: 400;
+  line-height: 1.65;
+  color: #4a3d30;
+}
+.ab-vision-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.ab-vision-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+.ab-vision-img-wrap:hover .ab-vision-img { transform: scale(1.04); }
+.ab-vision-img-badge {
+  position: absolute;
+  top: 40px; left: 40px;
+  background: rgba(253,250,246,0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ede6dc;
+  border-radius: 12px;
+  padding: 16px 20px;
+  max-width: 220px;
+}
+.ab-vision-img-badge-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 900;
+  color: #d97706;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.ab-vision-img-badge-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #6b5e52;
+}
+
+/* ════════════════════════════════════════════════
+   8. CLOSING MANIFESTO
+════════════════════════════════════════════════ */
+.ab-closing {
+  padding: 120px 72px;
+  background: #1c1510;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.ab-closing::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 20% 50%, rgba(217,119,6,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 50%, rgba(217,119,6,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ab-closing-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.ab-closing-eyebrow {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(253,230,138,0.55);
+  margin-bottom: 28px;
+}
+.ab-closing-h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #fdfaf6;
+  margin-bottom: 28px;
+}
+.ab-closing-h2 em { font-style: italic; color: #fde68a; }
+.ab-closing-body {
+  font-size: 16px; font-weight: 300;
+  line-height: 1.9;
+  color: rgba(253,250,246,0.55);
+  margin-bottom: 52px;
+}
+.ab-closing-sig {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-style: italic;
+  color: #d97706;
+  margin-bottom: 6px;
+}
+.ab-closing-sig-sub {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(253,250,246,0.3);
+}
+.ab-closing-rule {
+  width: 60px; height: 1px;
+  background: rgba(253,250,246,0.12);
+  margin: 32px auto;
+}
+
+/* ════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .ab-hero-content { padding: 0 40px 56px; }
+  .ab-hero-scroll { right: 40px; }
+  .ab-origin { grid-template-columns: 1fr; }
+  .ab-origin-img-wrap { height: 420px; }
+  .ab-origin-text { padding: 56px 40px; }
+  .ab-mission-content { padding: 72px 40px; }
+  .ab-pillars { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .ab-pillar { border-right: none; padding: 0; }
+  .ab-programs { padding: 72px 40px; }
+  .ab-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 280px 280px; }
+  .ab-mosaic-item:first-child { grid-column: span 2; }
+  .ab-timeline { padding: 72px 40px; }
+  .ab-timeline-track { grid-template-columns: repeat(3, 1fr); row-gap: 48px; }
+  .ab-timeline-track::before { display: none; }
+  .ab-team-banner-text { left: 40px; }
+  .ab-team-cards { grid-template-columns: 1fr 1fr; }
+  .ab-team-card:nth-child(2) { border-right: none; }
+  .ab-team-card:nth-child(3) { border-top: 1px solid #ede6dc; }
+  .ab-vision { grid-template-columns: 1fr; }
+  .ab-vision-img-wrap { height: 460px; }
+  .ab-vision-text { padding: 56px 40px; }
+  .ab-closing { padding: 80px 40px; }
+}
+
+@media (max-width: 640px) {
+  .ab-hero-content { padding: 0 24px 48px; }
+  .ab-hero-scroll { display: none; }
+  .ab-hero-stats { flex-direction: column; width: 100%; }
+  .ab-hero-stat { border-right: none; border-bottom: 1px solid rgba(253,250,246,0.12); }
+  .ab-hero-stat:last-child { border-bottom: none; }
+  .ab-origin-text { padding: 48px 24px; }
+  .ab-body-text { max-width: 100%; }
+  .ab-mission-content { padding: 60px 24px; }
+  .ab-pillars { grid-template-columns: 1fr; }
+  .ab-programs { padding: 56px 24px; }
+  .ab-programs-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .ab-mosaic { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .ab-mosaic-item { height: 220px; }
+  .ab-mosaic-item:first-child { grid-column: span 1; }
+  .ab-timeline { padding: 56px 24px; }
+  .ab-timeline-track { grid-template-columns: 1fr; }
+  .ab-team-banner-text { left: 24px; bottom: 32px; }
+  .ab-team-cards { grid-template-columns: 1fr; }
+  .ab-team-card { border-right: none; border-bottom: 1px solid #ede6dc; }
+  .ab-team-card:last-child { border-bottom: none; }
+  .ab-team-card:nth-child(3) { border-top: none; }
+  .ab-vision-text { padding: 48px 24px; }
+  .ab-closing { padding: 64px 24px; }
+}
+`;
+
 function useStyleInjection() {
   useEffect(() => {
-    const id = "ap-styles";
+    const id = "about-styles";
     if (document.getElementById(id)) return;
     const tag = document.createElement("style");
     tag.id = id;
@@ -614,9 +872,9 @@ function useStyleInjection() {
   }, []);
 }
 
-function useFontInjection() {
+function useFonts() {
   useEffect(() => {
-    const id = "ap-fonts";
+    const id = "about-fonts";
     if (document.getElementById(id)) return;
     const link = document.createElement("link");
     link.id = id;
@@ -632,106 +890,127 @@ function useScrollReveal() {
       (entries) =>
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add("ap-on");
+            e.target.classList.add("on");
             io.unobserve(e.target);
           }
         }),
-      { threshold: 0.12 },
+      { threshold: 0.1 },
     );
     document
-      .querySelectorAll(".ap-r0,.ap-rl,.ap-rr,.ap-rs")
+      .querySelectorAll(".ab-rv,.ab-rvl,.ab-rvr,.ab-rvs,.ab-rvf")
       .forEach((el) => io.observe(el));
     return () => io.disconnect();
   });
 }
 
-/* ─── Main Component ─────────────────────────────────────────────────────── */
+/* ─── Component ──────────────────────────────────────────────────────────── */
 export default function AboutPage() {
   useStyleInjection();
-  useFontInjection();
+  useFonts();
   useScrollReveal();
 
-  const doubled = [...TICKER_WORDS, ...TICKER_WORDS];
-
   return (
-    <div className="ap-section">
-      {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <div className="ap-hero">
-        <div className="ap-overline ap-r0">
-          <div className="ap-dash" /> About the Academy{" "}
-          <div className="ap-dash" />
+    <div className="ab-root">
+      {/* ── 1. HERO ───────────────────────────────────────────────────── */}
+      <section className="ab-hero">
+        <img
+          className="ab-hero-img"
+          src={IMGS.hero}
+          alt="Students learning"
+          loading="eager"
+        />
+        <div className="ab-hero-overlay" />
+        <div className="ab-hero-content">
+          <div className="ab-hero-pill ab-rv">
+            <span className="ab-hero-pill-dot" />
+            Est. 2020 · Meru, Kenya
+          </div>
+          <h1 className="ab-hero-h1 ab-rv d1">
+            Built from
+            <em>a single belief.</em>
+          </h1>
+          <p className="ab-hero-sub ab-rv d2">
+            Every child carries potential that a classroom alone cannot fully
+            reach. We built this academy to go further — into the hands, the
+            imagination, and the future.
+          </p>
+          <div className="ab-hero-stats ab-rv d3">
+            {[
+              { num: "3,000", suf: "+", label: "Learners Impacted" },
+              { num: "9", suf: "", label: "Specialist Programs" },
+              { num: "4", suf: "+", label: "Years of Impact" },
+              { num: "20", suf: "+", label: "School Partnerships" },
+            ].map((s) => (
+              <div key={s.label} className="ab-hero-stat">
+                <div className="ab-hero-stat-num">
+                  {s.num}
+                  <span>{s.suf}</span>
+                </div>
+                <div className="ab-hero-stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        <h1 className="ap-hero-headline ap-r0 ap-d1">
-          Built from
-          <em>a single belief.</em>
-        </h1>
-        <p className="ap-hero-sub ap-r0 ap-d2">
-          Every child carries potential that a classroom alone cannot fully
-          reach. We built this academy to go further — into the hands, the
-          imagination, and the future.
-        </p>
-        <div className="ap-stamp">
-          <span className="ap-stamp-text">Est.</span>
-          <span className="ap-stamp-year">2020</span>
-          <span className="ap-stamp-text">Meru, Kenya</span>
+        <div className="ab-hero-scroll">
+          <div className="ab-hero-scroll-line" /> Scroll to explore
         </div>
-      </div>
+      </section>
 
-      {/* ── TICKER ────────────────────────────────────────────────────── */}
-      <div className="ap-ticker-wrap">
-        <div className="ap-ticker-track">
-          {doubled.map((word, i) => (
-            <span key={i} className="ap-ticker-item">
-              <span className="ap-ticker-dot" /> {word}
-            </span>
-          ))}
+      {/* ── 2. ORIGIN ─────────────────────────────────────────────────── */}
+      <section className="ab-origin">
+        <div className="ab-origin-img-wrap ab-rvl">
+          <img
+            className="ab-origin-img"
+            src={IMGS.founding}
+            alt="The founding story"
+            loading="lazy"
+          />
+          <div className="ab-origin-img-cap">Meru, Kenya · 2020</div>
         </div>
-      </div>
-
-      {/* ── BEAT 01: FOUNDING ─────────────────────────────────────────── */}
-      <section className="ap-founding">
-        <div className="ap-founding-left">
-          <div className="ap-beat-num">01</div>
-          <p className="ap-beat-label ap-rl">The Founding</p>
-          <h2 className="ap-beat-headline ap-rl ap-d1">
-            It started with a<br />
-            <em>question no one asked.</em>
+        <div className="ab-origin-text">
+          <p className="ab-section-eyebrow ab-rv">The Founding</p>
+          <h2 className="ab-section-h2 ab-rv d1">
+            It started with a question
+            <br />
+            <em>no one had asked.</em>
           </h2>
-          <p className="ap-beat-body ap-rl ap-d2">
+          <p className="ab-body-text ab-rv d2">
             In 2020, our founders watched brilliant children sit through
             programmes built for averages — not potential. The spark came not in
             a boardroom, but in a conversation with a ten-year-old who wanted to
             build a drone but had nowhere to go.
           </p>
-          <br />
-          <p className="ap-beat-body ap-rl ap-d3">
+          <p className="ab-body-text ab-rv d3">
             So they made a place. A real one — with real tools, real mentors,
             and the radical belief that children aged 8 to 17 deserve access to
             the same opportunities as anyone else.
           </p>
-        </div>
-        <div className="ap-founding-right ap-rr">
-          <span className="ap-tape ap-r0 ap-d1">founder's note, 2020</span>
-          <blockquote className="ap-pull-quote">
-            We didn't set out to build a company. We set out to answer a child's
-            question.
-          </blockquote>
-          <p className="ap-pull-attr">— Co-founder, Academy</p>
+          <div className="ab-pull-quote ab-rv d4">
+            <p>
+              "We didn't set out to build a company. We set out to answer a
+              child's question."
+            </p>
+            <cite>— Co-founder, Deluxe Talent and Adventures Academy</cite>
+          </div>
         </div>
       </section>
 
-      {/* ── BEAT 02: MISSION ──────────────────────────────────────────── */}
-      <section className="ap-mission">
-        <div className="ap-mission-inner">
-          <p className="ap-mission-label ap-r0">What we believe</p>
-          <h2 className="ap-mission-statement ap-r0 ap-d1">
-            Every child deserves a space where
-            <br />
-            <em>curiosity becomes courage,</em>
-            <br />
-            and potential becomes purpose.
+      {/* ── 3. MISSION ────────────────────────────────────────────────── */}
+      <section className="ab-mission">
+        <img
+          className="ab-mission-img"
+          src={IMGS.mission}
+          alt="Children learning"
+          loading="lazy"
+        />
+        <div className="ab-mission-overlay" />
+        <div className="ab-mission-content">
+          <p className="ab-mission-label ab-rv">What we believe</p>
+          <h2 className="ab-mission-statement ab-rv d1">
+            Every child deserves a space where curiosity becomes courage, and{" "}
+            <em>potential becomes purpose.</em>
           </h2>
-          <div className="ap-pillars ap-r0 ap-d2">
+          <div className="ab-pillars ab-rv d2">
             {[
               {
                 icon: "✦",
@@ -741,7 +1020,7 @@ export default function AboutPage() {
               {
                 icon: "✦",
                 name: "Confidence",
-                desc: "The courage to try and to fail forward",
+                desc: "The courage to try and fail forward",
               },
               {
                 icon: "✦",
@@ -754,125 +1033,158 @@ export default function AboutPage() {
                 desc: "Skills that outlast any classroom",
               },
             ].map((p) => (
-              <div key={p.name} className="ap-pillar">
-                <div className="ap-pillar-icon">{p.icon}</div>
-                <div className="ap-pillar-name">{p.name}</div>
-                <div className="ap-pillar-desc">{p.desc}</div>
+              <div key={p.name} className="ab-pillar">
+                <div className="ab-pillar-icon">{p.icon}</div>
+                <div className="ab-pillar-name">{p.name}</div>
+                <div className="ab-pillar-desc">{p.desc}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── BEAT 03: MILESTONES ───────────────────────────────────────── */}
-      <section className="ap-milestones">
-        <div className="ap-ms-header">
-          <p className="ap-beat-label ap-r0">The journey so far</p>
-          <h2
-            className="ap-beat-headline ap-r0 ap-d1"
-            style={{ maxWidth: 500 }}
-          >
+      {/* ── 4. PROGRAMS MOSAIC ────────────────────────────────────────── */}
+      <section className="ab-programs">
+        <div className="ab-programs-header">
+          <div className="ab-programs-header-left">
+            <p className="ab-section-eyebrow ab-rv">What we offer</p>
+            <h2 className="ab-section-h2 ab-rv d1">
+              Nine paths to
+              <br />
+              <em>discovering who you are.</em>
+            </h2>
+          </div>
+          <div className="ab-programs-count ab-rvr">9</div>
+        </div>
+        <div className="ab-mosaic">
+          {PROGRAMS_GRID.map((p, i) => (
+            <div key={i} className={`ab-mosaic-item ab-rvs d${i + 1}`}>
+              <img
+                className="ab-mosaic-img"
+                src={p.img}
+                alt={p.label}
+                loading="lazy"
+              />
+              <div className="ab-mosaic-label-wrap">
+                <div className="ab-mosaic-label">{p.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 5. MILESTONES ─────────────────────────────────────────────── */}
+      <section className="ab-timeline">
+        <div className="ab-timeline-header">
+          <p className="ab-section-eyebrow ab-rv">The journey so far</p>
+          <h2 className="ab-section-h2 ab-rv d1" style={{ maxWidth: 500 }}>
             Four years of <em>moments that mattered.</em>
           </h2>
         </div>
-        <div className="ap-ms-grid">
+        <div className="ab-timeline-track">
           {MILESTONES.map((m, i) => (
-            <div key={i} className={`ap-ms-item ap-rs ap-d${(i % 5) + 1}`}>
-              <div className="ap-ms-badge" />
-              <div className="ap-ms-year">{m.year}</div>
-              <div className="ap-ms-title">{m.title}</div>
-              <div className="ap-ms-desc">{m.desc}</div>
+            <div key={i} className={`ab-tl-item ab-rv d${(i % 4) + 1}`}>
+              <div className="ab-tl-dot" />
+              <div className="ab-tl-year">{m.year}</div>
+              <div className="ab-tl-title">{m.title}</div>
+              <div className="ab-tl-desc">{m.desc}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── BEAT 04: TEAM ─────────────────────────────────────────────── */}
-      <section className="ap-team">
-        <div className="ap-team-left">
-          <div
-            className="ap-beat-num"
-            style={{ fontSize: 120, top: 20, left: 20 }}
-          >
-            04
-          </div>
-          <p className="ap-beat-label ap-rl">The People</p>
-          <h2 className="ap-beat-headline ap-rl ap-d1">
-            Mentors before
-            <br />
-            <em>they were teachers.</em>
-          </h2>
-          <p className="ap-beat-body ap-rl ap-d2" style={{ marginTop: 12 }}>
-            Our team isn't assembled from CVs. They're people who have competed,
-            built, performed, and created — and chose to come back to show the
-            next generation how.
-          </p>
-          <br />
-          <p className="ap-beat-body ap-rl ap-d3">
-            Every mentor carries a story. Every story becomes part of a
-            student's foundation.
-          </p>
-        </div>
-        <div className="ap-team-right">
-          {TEAM.map((t, i) => (
-            <div key={i} className={`ap-team-card ap-rs ap-d${i + 1}`}>
-              <div className="ap-tc-initial">{t.initials}</div>
-              <div className="ap-tc-name">{t.name}</div>
-              <div className="ap-tc-role">{t.role}</div>
-              <p className="ap-tc-note">{t.note}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── BEAT 05: VISION ───────────────────────────────────────────── */}
-      <section className="ap-vision">
-        <div className="ap-vision-num">05</div>
-        <div className="ap-vision-inner">
-          <div>
-            <p className="ap-beat-label ap-r0">The Vision</p>
-            <h2
-              className="ap-beat-headline ap-r0 ap-d1"
-              style={{ marginBottom: 16 }}
-            >
-              Where we're
+      {/* ── 6. TEAM ───────────────────────────────────────────────────── */}
+      <section className="ab-team">
+        <div className="ab-team-banner">
+          <img
+            className="ab-team-banner-img"
+            src={IMGS.team}
+            alt="The team"
+            loading="lazy"
+          />
+          <div className="ab-team-banner-overlay" />
+          <div className="ab-team-banner-text">
+            <p className="ab-section-eyebrow ab-rv">The People</p>
+            <h2 className="ab-section-h2 ab-rv d1">
+              Mentors before
               <br />
-              <em>going next.</em>
+              <em>they were teachers.</em>
             </h2>
-            <p className="ap-beat-body ap-r0 ap-d2">
-              We are building the infrastructure of young talent in East Africa.
-              A generation from now, we want every child between 8 and 17 to
-              have a place that says:{" "}
-              <em>you belong here, and you have something to build.</em>
-            </p>
           </div>
-          <div className="ap-promises">
+        </div>
+        <div className="ab-team-cards">
+          {TEAM.map((t, i) => (
+            <div key={i} className={`ab-team-card ab-rv d${i + 1}`}>
+              <div className="ab-tc-avatar">{t.initials}</div>
+              <div className="ab-tc-name">{t.name}</div>
+              <div className="ab-tc-role">{t.role}</div>
+              <div className="ab-tc-rule" />
+              <p className="ab-tc-note">{t.note}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 7. VISION ─────────────────────────────────────────────────── */}
+      <section className="ab-vision">
+        <div className="ab-vision-text">
+          <p className="ab-section-eyebrow ab-rv">Where we're going</p>
+          <h2 className="ab-section-h2 ab-rv d1">
+            The promises we've
+            <br />
+            <em>made to the future.</em>
+          </h2>
+          <p className="ab-body-text ab-rv d2">
+            We are building the infrastructure of young talent in East Africa. A
+            generation from now, every child between 8 and 17 will have a place
+            that says:{" "}
+            <em>you belong here, and you have something to build.</em>
+          </p>
+          <div className="ab-promises">
             {PROMISES.map((p, i) => (
-              <div key={i} className={`ap-promise ap-r0 ap-d${i + 1}`}>
-                <span className="ap-promise-num">{p.n}</span>
-                <span className="ap-promise-text">{p.text}</span>
+              <div key={i} className={`ab-promise ab-rv d${i + 1}`}>
+                <span className="ab-promise-n">{p.n}</span>
+                <span className="ab-promise-text">{p.text}</span>
               </div>
             ))}
           </div>
         </div>
+        <div className="ab-vision-img-wrap ab-rvr">
+          <img
+            className="ab-vision-img"
+            src={IMGS.vision}
+            alt="Children's future"
+            loading="lazy"
+          />
+          <div className="ab-vision-img-badge">
+            <div className="ab-vision-img-badge-num">10K</div>
+            <div className="ab-vision-img-badge-label">Learners by 2027</div>
+          </div>
+        </div>
       </section>
 
-      {/* ── MANIFESTO ─────────────────────────────────────────────────── */}
-      <section className="ap-manifesto">
-        <h2 className="ap-manifesto-headline ap-r0">
-          This is not just
-          <br />
-          an academy.
-          <br />
-          <em>It is a beginning.</em>
-        </h2>
-        <p className="ap-manifesto-body ap-r0 ap-d1">
-          Every child who walks through our doors carries a future we haven't
-          imagined yet. Our job is simply to make sure they have the tools, the
-          courage, and the community to build it.
-        </p>
-        <div className="ap-sig ap-r0 ap-d2">The Academy Team</div>
-        <div className="ap-sig-sub ap-r0 ap-d3">Meru, Kenya · Est. 2020</div>
+      {/* ── 8. CLOSING MANIFESTO ──────────────────────────────────────── */}
+      <section className="ab-closing">
+        <div className="ab-closing-inner">
+          <p className="ab-closing-eyebrow ab-rv">Our promise</p>
+          <h2 className="ab-closing-h2 ab-rv d1">
+            This is not just
+            <br />
+            an academy.
+            <br />
+            <em>It is a beginning.</em>
+          </h2>
+          <div className="ab-closing-rule" />
+          <p className="ab-closing-body ab-rv d2">
+            Every child who walks through our doors carries a future we haven't
+            imagined yet. Our job is simply to make sure they have the tools,
+            the courage, and the community to build it.
+          </p>
+          <div className="ab-closing-sig ab-rv d3">The Academy Team</div>
+          <div className="ab-closing-sig-sub ab-rv d4">
+            Meru, Kenya · Est. 2020
+          </div>
+        </div>
       </section>
     </div>
   );

@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import ImpactSection from "../components/ImpactSection";
 import ProgramsScroll from "../components/ProgramsScroll";
 import WhyChooseUs from "../components/WhyChooseUs";
+import HomeAbout from "../components/HomeAbout";
 
 export function meta() {
   return [
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <div className="home">
       <Hero />
+      <HomeAbout />
       <ProgramsScroll
         onEnroll={(programTitle) => {
           window.dispatchEvent(

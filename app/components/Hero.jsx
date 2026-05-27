@@ -1,58 +1,77 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import { Link } from "react-router";
 
-// Staggered entrance animation variants
+/* ─── Slideshow images (course-related) ─────────────────────────────────── */
+const SLIDES = [
+  { src: "/robotics1.jpg", alt: "Robotics & Coding session" },
+  { src: "/aviation.jpg", alt: "Aviation & Drone Technology workshop" },
+  { src: "/culinary.png", alt: "Culinary Arts class" },
+  { src: "/football.jpg", alt: "Football & Sports Development" },
+  { src: "/creative-arts.jpg", alt: "Visual Media & Creative Arts" },
+  { src: "/science.png", alt: "STEM Innovation Club" },
+];
+
+const SLIDE_DURATION = 5000; // ms per slide
+
+/* ─── Animation variants ─────────────────────────────────────────────────── */
 const container = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
+    transition: { staggerChildren: 0.11, delayChildren: 0.35 },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
 const fadeIn = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+  show: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
+/* ─── Stats ──────────────────────────────────────────────────────────────── */
 const STATS = [
   { num: "4+", label: "Years of experience" },
   { num: "3,000+", label: "Learners impacted" },
   { num: "9", label: "Specialist clubs" },
 ];
 
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
 export default function Hero() {
   const heroRef = useRef(null);
+  const [current, setCurrent] = useState(0);
 
-  // Parallax scroll for background orbs
+  /* Auto-advance slideshow */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % SLIDES.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(id);
+  }, []);
+
+  /* Parallax scroll */
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const rawY1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const rawY2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const rawOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  const rawImgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
 
-  // Spring-smoothed transforms
-  const orbY1 = useSpring(rawY1, { stiffness: 80, damping: 20 });
-  const orbY2 = useSpring(rawY2, { stiffness: 80, damping: 20 });
   const contentOpacity = useSpring(rawOpacity, { stiffness: 80, damping: 20 });
   const contentScale = useSpring(rawScale, { stiffness: 80, damping: 20 });
 
@@ -62,90 +81,66 @@ export default function Hero() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        background: "#08091A",
+        background: "#fdfaf6",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
       }}
     >
-      {/* ── Ambient background glows ── */}
+      {/* ── Cinematic slideshow background ─────────────────────────────── */}
       <div
         aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          overflow: "hidden",
-        }}
+        style={{ position: "absolute", inset: 0, zIndex: 0 }}
       >
-        {/* Blue glow — top right */}
-        <motion.div
-          style={{
-            position: "absolute",
-            width: 700,
-            height: 700,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(43,94,255,0.18) 0%, transparent 70%)",
-            top: -200,
-            right: -150,
-            y: orbY1,
-          }}
-        />
-        {/* Gold glow — bottom left */}
-        <motion.div
-          style={{
-            position: "absolute",
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%)",
-            bottom: -100,
-            left: -50,
-            y: orbY2,
-          }}
-        />
-        {/* Subtle blue — mid left */}
-        <motion.div
-          style={{
-            position: "absolute",
-            width: 300,
-            height: 300,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(43,94,255,0.07) 0%, transparent 70%)",
-            top: "40%",
-            left: "10%",
-            y: orbY1,
-          }}
-        />
+        <AnimatePresence>
+          <motion.div
+            key={current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.6, ease: "easeInOut" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              y: rawImgY,
+            }}
+          >
+            <img
+              src={SLIDES[current].src}
+              alt={SLIDES[current].alt}
+              style={{
+                width: "100%",
+                height: "110%",
+                objectFit: "cover",
+                objectPosition: "center",
+                display: "block",
+                filter: "saturate(0.75) brightness(0.92)",
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Grain texture overlay */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(160deg, rgba(15,10,5,0.62) 0%, rgba(15,10,5,0.45) 55%, rgba(15,10,5,0.70) 100%)",
+          }}
+        />
+        {/* Grain texture for warmth */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-            opacity: 0.025,
-          }}
-        />
-
-        {/* Subtle grid lines */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
-            `,
-            backgroundSize: "80px 80px",
+            opacity: 0.04,
+            pointerEvents: "none",
           }}
         />
       </div>
 
-      {/* ── Main content ── */}
+      {/* ── Main content ───────────────────────────────────────────────── */}
       <motion.div
         style={{
           position: "relative",
@@ -157,9 +152,10 @@ export default function Hero() {
           flex: 1,
           display: "flex",
           alignItems: "center",
-          paddingTop: 72, // nav height
+          paddingTop: 72,
           opacity: contentOpacity,
           scale: contentScale,
+          boxSizing: "border-box",
         }}
       >
         <motion.div
@@ -175,13 +171,13 @@ export default function Hero() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "rgba(43,94,255,0.1)",
-                border: "0.5px solid rgba(43,94,255,0.3)",
+                background: "rgba(217,119,6,0.1)",
+                border: "0.5px solid rgba(217,119,6,0.35)",
                 borderRadius: 100,
                 padding: "6px 16px 6px 10px",
                 fontSize: 12,
                 fontWeight: 600,
-                color: "#7EB3FF",
+                color: "#b45309",
                 letterSpacing: "0.5px",
                 fontFamily: "'DM Sans', sans-serif",
               }}
@@ -200,7 +196,7 @@ export default function Hero() {
               fontWeight: 900,
               lineHeight: 1.05,
               letterSpacing: "-2.5px",
-              color: "#F0EEE8",
+              color: "#1c1510",
               margin: "0 0 24px",
               maxWidth: 680,
             }}
@@ -208,7 +204,7 @@ export default function Hero() {
             Solving the Puzzle
             <br />
             of Your Child's{" "}
-            <em style={{ color: "#2B5EFF", fontStyle: "italic" }}>Future</em>
+            <em style={{ color: "#d97706", fontStyle: "italic" }}>Future</em>
           </motion.h1>
 
           {/* Subheading */}
@@ -217,7 +213,7 @@ export default function Hero() {
             style={{
               fontSize: 17,
               lineHeight: 1.75,
-              color: "rgba(240,238,232,0.55)",
+              color: "black",
               maxWidth: 480,
               margin: "0 0 40px",
               fontFamily: "'DM Sans', sans-serif",
@@ -240,12 +236,12 @@ export default function Hero() {
           >
             <Link to="/programs" style={{ textDecoration: "none" }}>
               <motion.button
-                whileHover={{ scale: 1.04, background: "#b8962e" }}
+                whileHover={{ scale: 1.04, background: "#b45309" }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.15 }}
                 style={{
-                  background: "#C9A84C",
-                  color: "#08091A",
+                  background: "#d97706",
+                  color: "#fff",
                   border: "none",
                   borderRadius: 8,
                   padding: "14px 28px",
@@ -254,6 +250,7 @@ export default function Hero() {
                   cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif",
                   letterSpacing: "0.3px",
+                  boxShadow: "0 4px 20px rgba(217,119,6,0.25)",
                 }}
               >
                 Explore Programs
@@ -263,15 +260,15 @@ export default function Hero() {
             <motion.button
               whileHover={{
                 scale: 1.03,
-                borderColor: "rgba(255,255,255,0.35)",
-                color: "#F0EEE8",
+                borderColor: "rgba(28,21,16,0.4)",
+                color: "#1c1510",
               }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.15 }}
               style={{
-                background: "transparent",
-                color: "rgba(240,238,232,0.65)",
-                border: "0.5px solid rgba(255,255,255,0.2)",
+                background: "rgba(253,250,246,0.6)",
+                color: "black",
+                border: "0.5px solid rgba(28,21,16,0.2)",
                 borderRadius: 8,
                 padding: "14px 28px",
                 fontSize: 14,
@@ -281,6 +278,7 @@ export default function Hero() {
                 display: "flex",
                 alignItems: "center",
                 gap: 10,
+                backdropFilter: "blur(8px)",
               }}
             >
               <PlayCircle />
@@ -293,9 +291,11 @@ export default function Hero() {
             <div
               style={{
                 display: "inline-flex",
-                border: "0.5px solid rgba(255,255,255,0.09)",
+                border: "0.5px solid rgba(28,21,16,0.12)",
                 borderRadius: 10,
                 overflow: "hidden",
+                background: "rgba(255,255,255,0.55)",
+                backdropFilter: "blur(12px)",
               }}
             >
               {STATS.map((stat, i) => (
@@ -312,7 +312,7 @@ export default function Hero() {
                     padding: "16px 28px",
                     borderRight:
                       i < STATS.length - 1
-                        ? "0.5px solid rgba(255,255,255,0.09)"
+                        ? "0.5px solid rgba(28,21,16,0.1)"
                         : "none",
                   }}
                 >
@@ -321,7 +321,7 @@ export default function Hero() {
                       fontFamily: "'Playfair Display', serif",
                       fontSize: 26,
                       fontWeight: 900,
-                      color: "#F0EEE8",
+                      color: "#1c1510",
                       lineHeight: 1,
                       marginBottom: 4,
                     }}
@@ -331,7 +331,7 @@ export default function Hero() {
                   <div
                     style={{
                       fontSize: 11,
-                      color: "rgba(240,238,232,0.4)",
+                      color: "#9c876e",
                       letterSpacing: "0.3px",
                       fontFamily: "'DM Sans', sans-serif",
                     }}
@@ -345,7 +345,42 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* ── Scroll indicator ── */}
+      {/* ── Slide dots ─────────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        style={{
+          position: "absolute",
+          bottom: 44,
+          right: 48,
+          display: "flex",
+          gap: 8,
+          zIndex: 3,
+          opacity: contentOpacity,
+        }}
+      >
+        {SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            style={{
+              width: i === current ? 24 : 7,
+              height: 7,
+              borderRadius: 4,
+              background: i === current ? "#d97706" : "rgba(28,21,16,0.25)",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              transition:
+                "width 400ms cubic-bezier(0.16,1,0.3,1), background 300ms ease",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* ── Scroll indicator ───────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -368,7 +403,7 @@ export default function Hero() {
             fontSize: 9,
             letterSpacing: "2.5px",
             textTransform: "uppercase",
-            color: "rgba(240,238,232,0.25)",
+            color: "rgba(28,21,16,0.3)",
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
@@ -380,7 +415,7 @@ export default function Hero() {
   );
 }
 
-// ── Sub-components ──────────────────────────────────────────
+/* ── Sub-components ────────────────────────────────────────────────────────── */
 
 function PulsingDot() {
   return (
@@ -392,7 +427,7 @@ function PulsingDot() {
         width: 7,
         height: 7,
         borderRadius: "50%",
-        background: "#2B5EFF",
+        background: "#d97706",
         flexShrink: 0,
       }}
     />
@@ -407,8 +442,8 @@ function PlayCircle() {
         width: 26,
         height: 26,
         borderRadius: "50%",
-        background: "rgba(255,255,255,0.08)",
-        border: "0.5px solid rgba(255,255,255,0.18)",
+        background: "rgba(28,21,16,0.07)",
+        border: "0.5px solid rgba(28,21,16,0.18)",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
@@ -416,7 +451,7 @@ function PlayCircle() {
       }}
     >
       <svg width="9" height="10" viewBox="0 0 9 10" fill="none">
-        <path d="M1.5 1.5L7.5 5L1.5 8.5V1.5Z" fill="rgba(240,238,232,0.8)" />
+        <path d="M1.5 1.5L7.5 5L1.5 8.5V1.5Z" fill="rgba(28,21,16,0.7)" />
       </svg>
     </motion.span>
   );
@@ -437,7 +472,7 @@ function ScrollLine() {
           right: 0,
           height: "100%",
           background:
-            "linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent)",
+            "linear-gradient(to bottom, transparent, rgba(28,21,16,0.35), transparent)",
         }}
       />
     </div>

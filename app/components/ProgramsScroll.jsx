@@ -19,30 +19,27 @@ const PROGRAMS = [
     category: "STEM & Innovation",
     title: "Aviation & Drone Technology",
     benefit: "Explore flight systems, drones, and future aviation skills.",
-    image:
-      "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=900&h=1100&fit=crop",
-    accent: "#1a3f7a",
-    tint: "#7ab3ff",
+    image: "/drone.jpg",
+    accent: "#dbeafe",
+    tint: "#1d4ed8",
     outcome: "Real-world aviation skills",
   },
   {
     category: "Creative & Life Skills",
     title: "Culinary Arts",
     benefit: "Learn cooking, nutrition, and creativity in food preparation.",
-    image:
-      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&h=1100&fit=crop",
-    accent: "#4a1050",
-    tint: "#d98ef5",
+    image: "/vegetables.jpg",
+    accent: "#fae8ff",
+    tint: "#7e22ce",
     outcome: "Kitchen confidence & creativity",
   },
   {
     category: "STEM & Innovation",
     title: "Robotics & Coding",
     benefit: "Build smart machines and learn programming fundamentals.",
-    image:
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=900&h=1100&fit=crop",
-    accent: "#0d2d50",
-    tint: "#60b8ff",
+    image: "/robot.jpg",
+    accent: "#dbeafe",
+    tint: "#1e40af",
     outcome: "Engineering & logic mindset",
   },
   {
@@ -50,49 +47,45 @@ const PROGRAMS = [
     title: "Public Speaking & Leadership",
     benefit: "Build confidence, communication, and leadership skills.",
     image:
-      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&h=1100&fit=crop",
-    accent: "#3d2a08",
-    tint: "#f5c842",
+      "https://tech-ish.com/wp-content/uploads/2018/05/Great-Debators-Contenst-960x658.jpg",
+    accent: "#fef9c3",
+    tint: "#a16207",
     outcome: "Poise & communication skills",
   },
   {
     category: "Strategy & Thinking",
     title: "Chess & Strategic Thinking",
     benefit: "Develop logic, patience, and decision-making skills.",
-    image:
-      "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?w=900&h=1100&fit=crop",
-    accent: "#2a1c06",
-    tint: "#e8a94a",
+    image: "/chess (2).jpg",
+    accent: "#fef3c7",
+    tint: "#92400e",
     outcome: "Critical thinking & strategy",
   },
   {
     category: "Sports & Development",
     title: "Football & Sports Development",
     benefit: "Improve fitness, teamwork, and competitive discipline.",
-    image:
-      "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=900&h=1100&fit=crop",
-    accent: "#092c18",
-    tint: "#4fcf84",
+    image: "childrens-playing-football.jpg",
+    accent: "#dcfce7",
+    tint: "#15803d",
     outcome: "Teamwork & athleticism",
   },
   {
     category: "STEM & Innovation",
     title: "STEM Innovation Club",
     benefit: "Hands-on experiments combining science and creativity.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=900&h=1100&fit=crop",
-    accent: "#0a1a38",
-    tint: "#5fb0ff",
+    image: "chemistry.jpg",
+    accent: "#e0f2fe",
+    tint: "#0369a1",
     outcome: "Scientific curiosity & method",
   },
   {
     category: "Creative Arts & Media",
     title: "Visual Media & Creative Arts",
     benefit: "Photography, video creation, and digital storytelling.",
-    image:
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=900&h=1100&fit=crop",
-    accent: "#2d0b40",
-    tint: "#c97aff",
+    image: "camera.jpg",
+    accent: "#f3e8ff",
+    tint: "#6b21a8",
     outcome: "Visual storytelling skills",
   },
   {
@@ -101,8 +94,8 @@ const PROGRAMS = [
     benefit: "Build focus, discipline, confidence, and self-control.",
     image:
       "https://images.unsplash.com/photo-1555597673-b21d5c935865?w=900&h=1100&fit=crop",
-    accent: "#092218",
-    tint: "#36c972",
+    accent: "#dcfce7",
+    tint: "#166534",
     outcome: "Discipline & self-mastery",
   },
 ];
@@ -112,7 +105,7 @@ const STYLES = `
   .ps-stage {
     position: relative;
     height: ${PROGRAMS.length * 100}vh;
-    background: #080808;
+    background: #fdfaf6;
   }
   .ps-shell {
     position: sticky;
@@ -132,18 +125,19 @@ const STYLES = `
     padding: 48px 52px;
     overflow: hidden;
     z-index: 2;
+    background: #fdfaf6;
   }
   .ps-left-glow {
     position: absolute;
     inset: 0;
-    opacity: 0.45;
+    opacity: 0.35;
     pointer-events: none;
     transition: background 700ms ease;
   }
   .ps-left-vignette {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, transparent 60%, rgba(0,0,0,0.6));
+    background: linear-gradient(135deg, transparent 60%, rgba(253,250,246,0.5));
     pointer-events: none;
   }
   .ps-counter {
@@ -152,17 +146,17 @@ const STYLES = `
     font-family: 'Cormorant Garamond', serif;
     font-size: 13px;
     font-weight: 300;
-    color: rgba(255,255,255,0.35);
+    color: rgba(28,21,16,0.35);
     letter-spacing: 0.06em;
     z-index: 1;
   }
   .ps-eyebrow {
     font-family: 'DM Sans', sans-serif;
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.9;
     margin-bottom: 6px;
     position: relative; z-index: 1;
     transition: color 500ms ease;
@@ -173,7 +167,7 @@ const STYLES = `
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.02em;
-    color: #f5f0e8;
+    color: #1c1510;
     margin-bottom: 20px;
     position: relative; z-index: 1;
   }
@@ -186,14 +180,15 @@ const STYLES = `
     position: relative; z-index: 1;
     margin-top: auto;
     padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid #ede6dc;
   }
   .ps-active-tag {
     font-family: 'DM Sans', sans-serif;
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.75;
+    font-weight: 600;
+    opacity: 0.9;
     margin-bottom: 10px;
     transition: color 500ms ease;
   }
@@ -202,7 +197,7 @@ const STYLES = `
     font-size: clamp(28px, 3vw, 44px);
     font-weight: 600;
     line-height: 1.1;
-    color: #f5f0e8;
+    color: #1c1510;
     margin-bottom: 10px;
   }
   .ps-active-benefit {
@@ -210,7 +205,7 @@ const STYLES = `
     font-size: 14px;
     font-weight: 300;
     line-height: 1.7;
-    color: rgba(245,240,232,0.65);
+    color: #6b5e52;
     max-width: 340px;
     margin-bottom: 28px;
   }
@@ -230,19 +225,19 @@ const STYLES = `
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(245,240,232,0.4);
+    color: #9c876e;
   }
   .ps-meta-value {
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    color: rgba(245,240,232,0.85);
+    color: #1c1510;
   }
   .ps-cta {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: #080808;
+    color: #fff;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
@@ -251,13 +246,17 @@ const STYLES = `
     border-radius: 100px;
     border: none;
     cursor: pointer;
-    transition: background 500ms ease, transform 200ms ease;
+    transition: background 500ms ease, transform 200ms ease, box-shadow 200ms ease;
+    box-shadow: 0 4px 16px rgba(180,140,80,0.18);
   }
-  .ps-cta:hover { transform: scale(1.03); }
+  .ps-cta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(180,140,80,0.28);
+  }
   .ps-cta-arrow {
     width: 14px; height: 14px;
-    border-right: 2px solid #080808;
-    border-top: 2px solid #080808;
+    border-right: 2px solid #fff;
+    border-top: 2px solid #fff;
     transform: rotate(45deg);
     flex-shrink: 0;
     transition: margin-left 200ms ease;
@@ -271,7 +270,7 @@ const STYLES = `
   }
   .ps-progress-bar {
     width: 120px; height: 2px;
-    background: rgba(255,255,255,0.12);
+    background: #ede6dc;
     border-radius: 99px;
     overflow: hidden;
   }
@@ -283,7 +282,7 @@ const STYLES = `
   .ps-progress-label {
     font-family: 'DM Sans', sans-serif;
     font-size: 11px;
-    color: rgba(255,255,255,0.35);
+    color: #9c876e;
     letter-spacing: 0.12em;
   }
 
@@ -291,14 +290,14 @@ const STYLES = `
   .ps-right {
     position: relative;
     overflow: hidden;
-    background: #0a0a0a;
+    background: #f0ebe2;
   }
   .ps-right::before {
     content: '';
     position: absolute;
     top: 0; bottom: 0; left: 0;
     width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+    background: linear-gradient(to bottom, transparent, #ede6dc 30%, #ede6dc 70%, transparent);
     z-index: 10;
   }
   .ps-track {
@@ -321,22 +320,22 @@ const STYLES = `
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 600ms cubic-bezier(0.16,1,0.3,1), filter 500ms ease;
-    filter: saturate(0.7) brightness(0.75);
+    filter: saturate(0.85) brightness(0.95);
   }
   .ps-card.is-active .ps-card-img {
-    filter: saturate(1) brightness(0.82);
+    filter: saturate(1) brightness(1);
     transform: scale(1.04);
   }
   .ps-card-fade {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.1) 60%, transparent);
+    background: none;
     z-index: 1;
   }
   .ps-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 50%);
+    background: none;
     z-index: 2;
     opacity: 0;
     transition: opacity 500ms ease;
@@ -349,17 +348,17 @@ const STYLES = `
     font-family: 'Cormorant Garamond', serif;
     font-size: 11px;
     letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.4);
-    background: rgba(255,255,255,0.06);
+    color: rgba(28,21,16,0.5);
+    background: rgba(253,250,246,0.65);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid #ede6dc;
     padding: 6px 12px;
     border-radius: 99px;
     transition: color 300ms, background 300ms;
   }
   .ps-card.is-active .ps-card-badge {
-    color: rgba(255,255,255,0.85);
-    background: rgba(255,255,255,0.12);
+    color: rgba(28,21,16,0.9);
+    background: rgba(253,250,246,0.88);
   }
   .ps-card-label {
     position: absolute;
@@ -368,11 +367,11 @@ const STYLES = `
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
     font-weight: 500;
-    color: rgba(255,255,255,0.5);
+    color: rgba(28,21,16,0.45);
     transition: color 400ms ease, transform 400ms cubic-bezier(0.16,1,0.3,1);
   }
   .ps-card.is-active .ps-card-label {
-    color: rgba(255,255,255,0.92);
+    color: rgba(28,21,16,0.92);
     transform: translateY(-4px);
   }
 
@@ -389,12 +388,12 @@ const STYLES = `
   .ps-dot {
     width: 4px; height: 4px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.25);
+    background: rgba(28,21,16,0.2);
     cursor: pointer;
     transition: background 300ms, height 300ms, border-radius 300ms;
   }
   .ps-dot.is-active {
-    background: rgba(255,255,255,0.85);
+    background: #d97706;
     height: 16px;
     border-radius: 2px;
   }
@@ -480,7 +479,7 @@ const STYLES = `
     }
 
     .ps-card-fade {
-      background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, rgba(8,8,8,0.2) 50%, transparent);
+      background: none;
     }
 
     .ps-card-badge {
@@ -526,7 +525,6 @@ const STYLES = `
     .ps-headline {
       font-size: clamp(20px, 7vw, 28px);
       margin-bottom: 8px;
-      
     }
 
     .ps-active-info {
@@ -671,7 +669,7 @@ export default function ProgramsScroll({ onEnroll }) {
     return (
       <div
         className="ps-stage"
-        style={{ height: `${PROGRAMS.length * 100}vh`, background: "#080808" }}
+        style={{ height: `${PROGRAMS.length * 100}vh`, background: "#fdfaf6" }}
       >
         <div
           className="ps-shell"
@@ -684,7 +682,7 @@ export default function ProgramsScroll({ onEnroll }) {
             justifyContent: "center",
           }}
         >
-          <span style={{ color: "rgba(255,255,255,0.3)", fontFamily: "serif" }}>
+          <span style={{ color: "rgba(28,21,16,0.3)", fontFamily: "serif" }}>
             Loading programs…
           </span>
         </div>
@@ -704,7 +702,7 @@ export default function ProgramsScroll({ onEnroll }) {
         <div className="ps-shell">
           {/* ── LEFT PANEL ──────────────────────────────────── */}
           <div className="ps-left">
-            {/* Dynamic glow */}
+            {/* Dynamic glow — uses pastel accent per program */}
             <div
               className="ps-left-glow"
               style={{

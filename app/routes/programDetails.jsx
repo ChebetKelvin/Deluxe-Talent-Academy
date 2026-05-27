@@ -43,10 +43,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "12 students per group",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.07)",
+    colorBorder: "rgba(29,78,216,0.18)",
+    colorGlow: "rgba(29,78,216,0.1)",
     outcomes: [
       "Understand principles of flight and aerodynamics",
       "Pilot drones with precision and safety awareness",
@@ -114,7 +114,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   robotics: {
     id: "robotics",
     index: "02",
@@ -135,10 +134,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "15 students per group",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.07)",
+    colorBorder: "rgba(29,78,216,0.18)",
+    colorGlow: "rgba(29,78,216,0.1)",
     outcomes: [
       "Write functional code for robot control systems",
       "Design and assemble mechanical components",
@@ -206,7 +205,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   stem: {
     id: "stem",
     index: "03",
@@ -227,10 +225,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "15 students per group",
-    color: "#2B5EFF",
-    colorDim: "rgba(43,94,255,0.07)",
-    colorBorder: "rgba(43,94,255,0.18)",
-    colorGlow: "rgba(43,94,255,0.12)",
+    color: "#1d4ed8",
+    colorDim: "rgba(29,78,216,0.07)",
+    colorBorder: "rgba(29,78,216,0.18)",
+    colorGlow: "rgba(29,78,216,0.1)",
     outcomes: [
       "Apply the scientific method to real-world problems",
       "Design and prototype engineering solutions",
@@ -298,7 +296,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   culinary: {
     id: "culinary",
     index: "04",
@@ -319,10 +316,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "12 students per group",
-    color: "#C9A84C",
-    colorDim: "rgba(201,168,76,0.07)",
-    colorBorder: "rgba(201,168,76,0.18)",
-    colorGlow: "rgba(201,168,76,0.1)",
+    color: "#d97706",
+    colorDim: "rgba(217,119,6,0.07)",
+    colorBorder: "rgba(217,119,6,0.2)",
+    colorGlow: "rgba(217,119,6,0.1)",
     outcomes: [
       "Master fundamental cooking techniques and knife skills",
       "Understand nutrition, food science, and ingredient selection",
@@ -390,7 +387,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   arts: {
     id: "arts",
     index: "05",
@@ -411,10 +407,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "15 students per group",
-    color: "#C9A84C",
-    colorDim: "rgba(201,168,76,0.07)",
-    colorBorder: "rgba(201,168,76,0.18)",
-    colorGlow: "rgba(201,168,76,0.1)",
+    color: "#d97706",
+    colorDim: "rgba(217,119,6,0.07)",
+    colorBorder: "rgba(217,119,6,0.2)",
+    colorGlow: "rgba(217,119,6,0.1)",
     outcomes: [
       "Master camera fundamentals and composition techniques",
       "Edit photos and videos using professional software",
@@ -482,7 +478,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   speaking: {
     id: "speaking",
     index: "06",
@@ -503,10 +498,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "15 students per group",
-    color: "#1D9E75",
-    colorDim: "rgba(29,158,117,0.07)",
-    colorBorder: "rgba(29,158,117,0.18)",
-    colorGlow: "rgba(29,158,117,0.1)",
+    color: "#15803d",
+    colorDim: "rgba(21,128,61,0.07)",
+    colorBorder: "rgba(21,128,61,0.18)",
+    colorGlow: "rgba(21,128,61,0.1)",
     outcomes: [
       "Deliver compelling speeches with confidence and clarity",
       "Construct and defend persuasive arguments",
@@ -574,7 +569,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   chess: {
     id: "chess",
     index: "07",
@@ -595,10 +589,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "20 students per group",
-    color: "#1D9E75",
-    colorDim: "rgba(29,158,117,0.07)",
-    colorBorder: "rgba(29,158,117,0.18)",
-    colorGlow: "rgba(29,158,117,0.1)",
+    color: "#15803d",
+    colorDim: "rgba(21,128,61,0.07)",
+    colorBorder: "rgba(21,128,61,0.18)",
+    colorGlow: "rgba(21,128,61,0.1)",
     outcomes: [
       "Master chess from basic rules to advanced strategies",
       "Develop critical thinking and analytical skills",
@@ -662,7 +656,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   football: {
     id: "football",
     index: "08",
@@ -683,10 +676,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "20 students per group",
-    color: "#D85A30",
-    colorDim: "rgba(216,90,48,0.07)",
-    colorBorder: "rgba(216,90,48,0.18)",
-    colorGlow: "rgba(216,90,48,0.1)",
+    color: "#b45309",
+    colorDim: "rgba(180,83,9,0.07)",
+    colorBorder: "rgba(180,83,9,0.18)",
+    colorGlow: "rgba(180,83,9,0.1)",
     outcomes: [
       "Develop advanced football techniques and game understanding",
       "Build physical fitness, coordination, and agility",
@@ -754,7 +747,6 @@ const PROGRAMS_DATA = {
       },
     ],
   },
-
   martial: {
     id: "martial",
     index: "09",
@@ -775,10 +767,10 @@ const PROGRAMS_DATA = {
     duration: "12 Weeks",
     sessions: "Weekly · 2hr sessions",
     capacity: "15 students per group",
-    color: "#D85A30",
-    colorDim: "rgba(216,90,48,0.07)",
-    colorBorder: "rgba(216,90,48,0.18)",
-    colorGlow: "rgba(216,90,48,0.1)",
+    color: "#b45309",
+    colorDim: "rgba(180,83,9,0.07)",
+    colorBorder: "rgba(180,83,9,0.18)",
+    colorGlow: "rgba(180,83,9,0.1)",
     outcomes: [
       "Learn practical self-defence techniques and safety awareness",
       "Develop physical fitness, flexibility, and coordination",
@@ -848,9 +840,8 @@ const PROGRAMS_DATA = {
   },
 };
 
-// Default program data if specific program not found
 const getDefaultProgram = (id) => ({
-  id: id,
+  id,
   index: "00",
   category: "Program",
   name: "Program Details",
@@ -862,37 +853,15 @@ const getDefaultProgram = (id) => ({
   duration: "12 Weeks",
   sessions: "Weekly sessions",
   capacity: "Limited capacity",
-  color: "#2B5EFF",
-  colorDim: "rgba(43,94,255,0.07)",
-  colorBorder: "rgba(43,94,255,0.18)",
-  colorGlow: "rgba(43,94,255,0.12)",
+  color: "#d97706",
+  colorDim: "rgba(217,119,6,0.07)",
+  colorBorder: "rgba(217,119,6,0.2)",
+  colorGlow: "rgba(217,119,6,0.1)",
   outcomes: [],
   modules: [],
   testimonials: [],
   faq: [],
 });
-
-// ── Floating Orbs ────────────────────────────────────────────
-function AmbientOrb({ style, color }) {
-  return (
-    <motion.div
-      animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-      transition={{
-        duration: 8 + Math.random() * 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-      style={{
-        position: "absolute",
-        borderRadius: "50%",
-        filter: "blur(80px)",
-        pointerEvents: "none",
-        background: color,
-        ...style,
-      }}
-    />
-  );
-}
 
 // ── Main Component ───────────────────────────────────────────
 export default function ProgramDetailPage() {
@@ -906,37 +875,29 @@ export default function ProgramDetailPage() {
   const program = PROGRAMS_DATA[id] || getDefaultProgram(id);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     window.scrollTo(0, 0);
     return () => window.removeEventListener("resize", checkMobile);
   }, [id]);
 
-  // ── Adjusted Parallax scroll effects ──────────────────────
   const { scrollYProgress: heroScrollY } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  // Hero effects - subtle and elegant
-  const heroImageScale = useTransform(heroScrollY, [0, 1], [1, 1.1]); // Reduced zoom
-  const heroOpacity = useTransform(heroScrollY, [0, 1], [1, 0.85]); // Hero stays mostly visible
-  const heroY = useTransform(heroScrollY, [0, 1], [0, -15]); // Subtle movement
-
-  // Content section - appears quickly and stays fully visible
-  const contentY = useTransform(heroScrollY, [0, 0.15], [20, 0]); // Quick entrance
-  const contentOpacity = useTransform(heroScrollY, [0, 0.1], [1, 1]); // Always visible, just quick slide
-
+  const heroImageScale = useTransform(heroScrollY, [0, 1], [1, 1.1]);
+  const heroOpacity = useTransform(heroScrollY, [0, 1], [1, 0.85]);
+  const heroY = useTransform(heroScrollY, [0, 1], [0, -15]);
+  const contentY = useTransform(heroScrollY, [0, 0.15], [20, 0]);
+  const contentOpacity = useTransform(heroScrollY, [0, 0.1], [1, 1]);
   const smoothImageScale = useSpring(heroImageScale, {
     stiffness: 80,
     damping: 25,
   });
 
   const handleEnroll = () => {
-    // Store in sessionStorage so EnrollCTA reads it on mount
     sessionStorage.setItem("enrollProgram", program.name);
     navigate("/");
     setTimeout(() => {
@@ -956,30 +917,25 @@ export default function ProgramDetailPage() {
   return (
     <div
       style={{
-        background: "#08091A",
+        background: "#fdfaf6",
         minHeight: "100vh",
-        color: "#F0EEE8",
         fontFamily: "'DM Sans', sans-serif",
       }}
     >
-      {/* ── Hero Section ─────────────────────────────────── */}
+      {/* ── Hero ─────────────────────────────────────────────── */}
       <div
         ref={heroRef}
         style={{
           position: "relative",
-          height: isMobile ? "60vh" : "80vh", // Reduced height for faster content reveal
+          height: isMobile ? "60vh" : "80vh",
           overflow: "hidden",
           display: "flex",
           alignItems: "flex-end",
         }}
       >
-        {/* Background Image with Parallax */}
+        {/* Parallax image */}
         <motion.div
-          style={{
-            position: "absolute",
-            inset: 0,
-            scale: smoothImageScale,
-          }}
+          style={{ position: "absolute", inset: 0, scale: smoothImageScale }}
         >
           {PROGRAM_IMAGES[id] ? (
             <img
@@ -989,7 +945,7 @@ export default function ProgramDetailPage() {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                filter: "brightness(0.5) saturate(0.9)", // Slightly brighter
+                filter: "brightness(0.72) saturate(0.85)",
               }}
             />
           ) : (
@@ -997,63 +953,42 @@ export default function ProgramDetailPage() {
               style={{
                 width: "100%",
                 height: "100%",
-                background: `linear-gradient(135deg, ${program.colorDim}, #08091A)`,
+                background: `linear-gradient(135deg, ${program.colorDim}, #fdfaf6)`,
               }}
             />
           )}
         </motion.div>
 
-        {/* Overlay gradients - less dark for better visibility */}
+        {/* Warm cream gradient scrim — dark at bottom for text, fades to warm cream at top */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to top, #08091A 0%, rgba(8,9,26,0.6) 40%, rgba(8,9,26,0.2) 100%)",
+              "linear-gradient(to top, rgba(28,21,16,0.92) 0%, rgba(28,21,16,0.45) 45%, rgba(253,250,246,0.15) 100%)",
           }}
         />
+        {/* Per-program colour glow */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: `radial-gradient(circle at 30% 50%, ${program.colorGlow} 0%, transparent 50%)`,
-            opacity: 0.5,
+            background: `radial-gradient(circle at 30% 50%, ${program.colorGlow} 0%, transparent 55%)`,
+            opacity: 0.6,
           }}
         />
-
-        {/* Ambient orbs */}
-        <AmbientOrb
-          color={`${program.color}10`}
-          style={{
-            width: 300,
-            height: 300,
-            top: "20%",
-            right: "-5%",
-          }}
-        />
-        <AmbientOrb
-          color={`${program.color}08`}
-          style={{
-            width: 200,
-            height: 200,
-            bottom: "30%",
-            left: "-3%",
-          }}
-        />
-
-        {/* Grid overlay - more subtle */}
+        {/* Warm grain */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            opacity: 0.3,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+            opacity: 0.03,
+            pointerEvents: "none",
           }}
         />
 
-        {/* Hero Content */}
+        {/* Hero content */}
         <motion.div
           style={{
             position: "relative",
@@ -1077,39 +1012,47 @@ export default function ProgramDetailPage() {
                 marginBottom: 24,
               }}
             >
-              <Link
-                to="/"
-                style={{
-                  fontSize: 12,
-                  color: "rgba(240,238,232,0.7)",
-                  textDecoration: "none",
-                  fontWeight: 500,
-                }}
-              >
-                Home
-              </Link>
-              <span style={{ color: "rgba(240,238,232,0.5)" }}>/</span>
-              <Link
-                to="/programs"
-                style={{
-                  fontSize: 12,
-                  color: "rgba(240,238,232,0.7)",
-                  textDecoration: "none",
-                  fontWeight: 500,
-                }}
-              >
-                Programs
-              </Link>
-              <span style={{ color: "rgba(240,238,232,0.5)" }}>/</span>
-              <span
-                style={{
-                  fontSize: 12,
-                  color: "rgba(240,238,232,0.95)",
-                  fontWeight: 600,
-                }}
-              >
-                {program.name}
-              </span>
+              {[
+                { label: "Home", to: "/" },
+                { label: "Programs", to: "/programs" },
+                { label: program.name, to: null },
+              ].map((crumb, i, arr) => (
+                <span
+                  key={i}
+                  style={{ display: "flex", alignItems: "center", gap: 8 }}
+                >
+                  {crumb.to ? (
+                    <Link
+                      to={crumb.to}
+                      style={{
+                        fontSize: 12,
+                        color: "rgba(253,250,246,0.65)",
+                        textDecoration: "none",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {crumb.label}
+                    </Link>
+                  ) : (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: "rgba(253,250,246,0.95)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {crumb.label}
+                    </span>
+                  )}
+                  {i < arr.length - 1 && (
+                    <span
+                      style={{ color: "rgba(253,250,246,0.35)", fontSize: 12 }}
+                    >
+                      /
+                    </span>
+                  )}
+                </span>
+              ))}
             </motion.div>
 
             {/* Category badge */}
@@ -1123,9 +1066,9 @@ export default function ProgramDetailPage() {
                 gap: 6,
                 padding: "6px 16px",
                 borderRadius: 100,
-                background: "rgba(255,255,255,0.12)",
+                background: "rgba(253,250,246,0.15)",
                 backdropFilter: "blur(12px)",
-                border: "0.5px solid rgba(255,255,255,0.2)",
+                border: `0.5px solid ${program.colorBorder}`,
                 marginBottom: 16,
               }}
             >
@@ -1150,7 +1093,7 @@ export default function ProgramDetailPage() {
               </span>
             </motion.div>
 
-            {/* Title - more visible */}
+            {/* Title */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1167,9 +1110,10 @@ export default function ProgramDetailPage() {
                 fontWeight: 900,
                 lineHeight: 1.04,
                 letterSpacing: "-2px",
+                color: "#fdfaf6",
                 margin: "0 0 12px",
                 maxWidth: 800,
-                textShadow: "0 2px 20px rgba(0,0,0,0.5)", // Added text shadow for readability
+                textShadow: "0 2px 24px rgba(28,21,16,0.5)",
               }}
             >
               {program.name}
@@ -1184,11 +1128,11 @@ export default function ProgramDetailPage() {
                 fontSize: isMobile ? 15 : 17,
                 fontWeight: 400,
                 fontStyle: "italic",
-                color: "rgba(240,238,232,0.85)", // Made more visible
+                color: "rgba(253,250,246,0.82)",
                 maxWidth: 600,
                 lineHeight: 1.6,
                 fontFamily: "'Playfair Display', serif",
-                textShadow: "0 1px 10px rgba(0,0,0,0.5)", // Better readability
+                textShadow: "0 1px 12px rgba(28,21,16,0.4)",
               }}
             >
               "{program.tagline}"
@@ -1218,7 +1162,7 @@ export default function ProgramDetailPage() {
                       fontWeight: 700,
                       letterSpacing: "2px",
                       textTransform: "uppercase",
-                      color: "rgba(240,238,232,0.7)", // More visible
+                      color: "rgba(253,250,246,0.6)",
                       marginBottom: 4,
                     }}
                   >
@@ -1228,9 +1172,9 @@ export default function ProgramDetailPage() {
                     style={{
                       fontSize: 18,
                       fontWeight: 700,
-                      color: "#F0EEE8",
+                      color: "#fdfaf6",
                       fontFamily: "'Playfair Display', serif",
-                      textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+                      textShadow: "0 1px 8px rgba(28,21,16,0.4)",
                     }}
                   >
                     {stat.value}
@@ -1242,7 +1186,7 @@ export default function ProgramDetailPage() {
         </motion.div>
       </div>
 
-      {/* ── Content Section ──────────────────────────────── */}
+      {/* ── Content ──────────────────────────────────────────── */}
       <motion.div
         ref={contentRef}
         style={{
@@ -1255,13 +1199,13 @@ export default function ProgramDetailPage() {
           zIndex: 3,
         }}
       >
-        {/* Tab Navigation */}
+        {/* Tab nav */}
         <div
           style={{
             display: "flex",
             gap: 4,
             marginBottom: 48,
-            borderBottom: "0.5px solid rgba(255,255,255,0.08)",
+            borderBottom: "1px solid #ede6dc",
             overflowX: "auto",
             WebkitOverflowScrolling: "touch",
           }}
@@ -1276,7 +1220,7 @@ export default function ProgramDetailPage() {
                 padding: "16px 24px",
                 fontSize: 13,
                 fontWeight: 600,
-                color: activeTab === tab ? "#F0EEE8" : "rgba(240,238,232,0.4)",
+                color: activeTab === tab ? "#1c1510" : "#9c876e",
                 cursor: "pointer",
                 fontFamily: "'DM Sans', sans-serif",
                 textTransform: "capitalize",
@@ -1306,7 +1250,7 @@ export default function ProgramDetailPage() {
           ))}
         </div>
 
-        {/* Tab Content */}
+        {/* Tab content */}
         <AnimatePresence mode="wait">
           {activeTab === "overview" && (
             <OverviewTab key="overview" program={program} isMobile={isMobile} />
@@ -1326,7 +1270,7 @@ export default function ProgramDetailPage() {
           )}
         </AnimatePresence>
 
-        {/* ── CTA Section ── */}
+        {/* CTA strip */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1335,10 +1279,12 @@ export default function ProgramDetailPage() {
           style={{
             marginTop: 80,
             padding: isMobile ? "32px 24px" : "48px",
-            background: program.colorDim,
-            border: `0.5px solid ${program.colorBorder}`,
+            background: "#fff",
+            border: `1px solid #ede6dc`,
+            borderLeft: `4px solid ${program.color}`,
             borderRadius: 16,
             textAlign: "center",
+            boxShadow: "0 8px 40px rgba(180,140,80,0.08)",
           }}
         >
           <div
@@ -1358,7 +1304,7 @@ export default function ProgramDetailPage() {
               fontFamily: "'Playfair Display', serif",
               fontSize: isMobile ? 28 : 36,
               fontWeight: 900,
-              color: "#F0EEE8",
+              color: "#1c1510",
               margin: "0 0 12px",
               letterSpacing: "-0.5px",
             }}
@@ -1368,7 +1314,7 @@ export default function ProgramDetailPage() {
           <p
             style={{
               fontSize: 15,
-              color: "rgba(240,238,232,0.5)",
+              color: "#6b5e52",
               margin: "0 auto 28px",
               maxWidth: 500,
               lineHeight: 1.7,
@@ -1387,7 +1333,7 @@ export default function ProgramDetailPage() {
           >
             <motion.button
               onClick={handleEnroll}
-              whileHover={{ scale: 1.04, background: program.color }}
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               style={{
                 background: program.color,
@@ -1399,6 +1345,7 @@ export default function ProgramDetailPage() {
                 fontWeight: 700,
                 cursor: "pointer",
                 fontFamily: "'DM Sans', sans-serif",
+                boxShadow: `0 4px 16px ${program.colorGlow}`,
               }}
             >
               Enroll Now →
@@ -1410,18 +1357,23 @@ export default function ProgramDetailPage() {
               style={{ textDecoration: "none" }}
             >
               <motion.button
-                whileHover={{ scale: 1.04 }}
+                whileHover={{
+                  scale: 1.04,
+                  borderColor: "rgba(37,211,102,0.5)",
+                  color: "#16a34a",
+                }}
                 whileTap={{ scale: 0.97 }}
                 style={{
                   background: "transparent",
-                  color: "rgba(240,238,232,0.7)",
-                  border: "0.5px solid rgba(255,255,255,0.15)",
+                  color: "#6b5e52",
+                  border: "0.5px solid #ede6dc",
                   borderRadius: 8,
                   padding: "14px 32px",
                   fontSize: 15,
                   fontWeight: 600,
                   cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif",
+                  transition: "color 0.2s, border-color 0.2s",
                 }}
               >
                 Ask on WhatsApp
@@ -1450,14 +1402,14 @@ function OverviewTab({ program, isMobile }) {
           gap: isMobile ? 40 : 60,
         }}
       >
-        {/* Left: Description */}
+        {/* Left */}
         <div>
           <h3
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 24,
               fontWeight: 700,
-              color: "#F0EEE8",
+              color: "#1c1510",
               margin: "0 0 16px",
             }}
           >
@@ -1467,20 +1419,18 @@ function OverviewTab({ program, isMobile }) {
             style={{
               fontSize: 15,
               lineHeight: 1.8,
-              color: "rgba(240,238,232,0.6)",
+              color: "#6b5e52",
               marginBottom: 32,
             }}
           >
             {program.description}
           </p>
-
-          {/* Skills Grid */}
           <h3
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 20,
               fontWeight: 700,
-              color: "#F0EEE8",
+              color: "#1c1510",
               margin: "0 0 16px",
             }}
           >
@@ -1501,18 +1451,14 @@ function OverviewTab({ program, isMobile }) {
                   alignItems: "center",
                   gap: 10,
                   padding: "12px 16px",
-                  background: "rgba(255,255,255,0.03)",
-                  border: "0.5px solid rgba(255,255,255,0.08)",
+                  background: "#fff",
+                  border: "1px solid #ede6dc",
                   borderRadius: 10,
                 }}
               >
                 <span style={{ fontSize: 20 }}>{skill.icon}</span>
                 <span
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: "rgba(240,238,232,0.7)",
-                  }}
+                  style={{ fontSize: 13, fontWeight: 500, color: "#4a3d30" }}
                 >
                   {skill.name}
                 </span>
@@ -1521,15 +1467,14 @@ function OverviewTab({ program, isMobile }) {
           </div>
         </div>
 
-        {/* Right: Outcomes & Info */}
+        {/* Right */}
         <div>
-          {/* Learning Outcomes */}
           <h3
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 24,
               fontWeight: 700,
-              color: "#F0EEE8",
+              color: "#1c1510",
               margin: "0 0 16px",
             }}
           >
@@ -1543,11 +1488,7 @@ function OverviewTab({ program, isMobile }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 12,
-                }}
+                style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
               >
                 <div
                   style={{
@@ -1568,11 +1509,7 @@ function OverviewTab({ program, isMobile }) {
                   ✓
                 </div>
                 <span
-                  style={{
-                    fontSize: 14,
-                    lineHeight: 1.6,
-                    color: "rgba(240,238,232,0.65)",
-                  }}
+                  style={{ fontSize: 14, lineHeight: 1.6, color: "#6b5e52" }}
                 >
                   {outcome}
                 </span>
@@ -1580,13 +1517,14 @@ function OverviewTab({ program, isMobile }) {
             ))}
           </div>
 
-          {/* Info Card */}
+          {/* Info card */}
           <div
             style={{
               marginTop: 40,
               padding: 24,
-              background: program.colorDim,
-              border: `0.5px solid ${program.colorBorder}`,
+              background: "#fff",
+              border: `1px solid #ede6dc`,
+              borderLeft: `3px solid ${program.color}`,
               borderRadius: 12,
             }}
           >
@@ -1594,7 +1532,7 @@ function OverviewTab({ program, isMobile }) {
               style={{
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#F0EEE8",
+                color: "#1c1510",
                 margin: "0 0 16px",
                 fontFamily: "'Playfair Display', serif",
               }}
@@ -1614,15 +1552,15 @@ function OverviewTab({ program, isMobile }) {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    borderBottom: "0.5px solid #f0e8dc",
+                    paddingBottom: 8,
                   }}
                 >
-                  <span
-                    style={{ fontSize: 13, color: "rgba(240,238,232,0.5)" }}
-                  >
+                  <span style={{ fontSize: 13, color: "#9c876e" }}>
                     {detail.label}
                   </span>
                   <span
-                    style={{ fontSize: 13, fontWeight: 600, color: "#F0EEE8" }}
+                    style={{ fontSize: 13, fontWeight: 600, color: "#1c1510" }}
                   >
                     {detail.value}
                   </span>
@@ -1650,7 +1588,7 @@ function ModulesTab({ program, isMobile }) {
           fontFamily: "'Playfair Display', serif",
           fontSize: 24,
           fontWeight: 700,
-          color: "#F0EEE8",
+          color: "#1c1510",
           margin: "0 0 32px",
         }}
       >
@@ -1669,17 +1607,11 @@ function ModulesTab({ program, isMobile }) {
               gridTemplateColumns: isMobile ? "1fr" : "200px 1fr",
               gap: 24,
               padding: "28px 0",
-              borderBottom: "0.5px solid rgba(255,255,255,0.06)",
+              borderBottom: "1px solid #ede6dc",
               position: "relative",
             }}
           >
-            {/* Timeline marker */}
-            <div
-              style={{
-                position: "relative",
-                paddingLeft: 32,
-              }}
-            >
+            <div style={{ position: "relative", paddingLeft: 32 }}>
               <div
                 style={{
                   position: "absolute",
@@ -1689,8 +1621,8 @@ function ModulesTab({ program, isMobile }) {
                   height: 12,
                   borderRadius: "50%",
                   background: program.color,
-                  border: "2px solid #08091A",
-                  boxShadow: `0 0 0 1px ${program.color}40`,
+                  border: "2px solid #fdfaf6",
+                  boxShadow: `0 0 0 1px ${program.colorBorder}`,
                 }}
               />
               <div
@@ -1704,13 +1636,7 @@ function ModulesTab({ program, isMobile }) {
               >
                 Module {index + 1}
               </div>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: "rgba(240,238,232,0.4)",
-                  marginTop: 4,
-                }}
-              >
+              <div style={{ fontSize: 12, color: "#9c876e", marginTop: 4 }}>
                 {module.duration}
               </div>
             </div>
@@ -1719,7 +1645,7 @@ function ModulesTab({ program, isMobile }) {
                 style={{
                   fontSize: 18,
                   fontWeight: 700,
-                  color: "#F0EEE8",
+                  color: "#1c1510",
                   margin: "0 0 8px",
                   fontFamily: "'Playfair Display', serif",
                 }}
@@ -1730,7 +1656,7 @@ function ModulesTab({ program, isMobile }) {
                 style={{
                   fontSize: 14,
                   lineHeight: 1.7,
-                  color: "rgba(240,238,232,0.55)",
+                  color: "#6b5e52",
                   margin: 0,
                 }}
               >
@@ -1746,23 +1672,18 @@ function ModulesTab({ program, isMobile }) {
 
 // ── Testimonials Tab ─────────────────────────────────────────
 function TestimonialsTab({ program, isMobile }) {
-  if (!program.testimonials || program.testimonials.length === 0) {
+  if (!program.testimonials?.length) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        style={{
-          textAlign: "center",
-          padding: "60px 0",
-          color: "rgba(240,238,232,0.4)",
-        }}
+        style={{ textAlign: "center", padding: "60px 0", color: "#9c876e" }}
       >
         <p style={{ fontSize: 16 }}>Testimonials coming soon.</p>
       </motion.div>
     );
   }
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1775,7 +1696,7 @@ function TestimonialsTab({ program, isMobile }) {
           fontFamily: "'Playfair Display', serif",
           fontSize: 24,
           fontWeight: 700,
-          color: "#F0EEE8",
+          color: "#1c1510",
           margin: "0 0 32px",
         }}
       >
@@ -1797,19 +1718,18 @@ function TestimonialsTab({ program, isMobile }) {
             transition={{ delay: index * 0.15 }}
             style={{
               padding: 28,
-              background: "rgba(255,255,255,0.03)",
-              border: "0.5px solid rgba(255,255,255,0.08)",
+              background: "#fff",
+              border: "1px solid #ede6dc",
               borderRadius: 12,
-              position: "relative",
+              boxShadow: "0 4px 20px rgba(180,140,80,0.06)",
             }}
           >
-            {/* Quote mark */}
             <div
               style={{
                 fontSize: 48,
                 fontFamily: "'Playfair Display', serif",
-                color: program.color,
-                opacity: 0.2,
+                color: "#f59e0b",
+                opacity: 0.35,
                 lineHeight: 1,
                 marginBottom: 16,
               }}
@@ -1820,9 +1740,10 @@ function TestimonialsTab({ program, isMobile }) {
               style={{
                 fontSize: 14,
                 lineHeight: 1.7,
-                color: "rgba(240,238,232,0.65)",
+                color: "#4a3d30",
                 margin: "0 0 20px",
                 fontStyle: "italic",
+                fontFamily: "'Playfair Display', serif",
               }}
             >
               {testimonial.quote}
@@ -1833,7 +1754,7 @@ function TestimonialsTab({ program, isMobile }) {
                 alignItems: "center",
                 gap: 12,
                 paddingTop: 16,
-                borderTop: "0.5px solid rgba(255,255,255,0.06)",
+                borderTop: "1px solid #f0e8dc",
               }}
             >
               <div
@@ -1841,7 +1762,7 @@ function TestimonialsTab({ program, isMobile }) {
                   width: 36,
                   height: 36,
                   borderRadius: "50%",
-                  background: program.color,
+                  background: "linear-gradient(135deg, #f59e0b, #fb923c)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -1854,16 +1775,11 @@ function TestimonialsTab({ program, isMobile }) {
               </div>
               <div>
                 <div
-                  style={{ fontSize: 13, fontWeight: 600, color: "#F0EEE8" }}
+                  style={{ fontSize: 13, fontWeight: 600, color: "#1c1510" }}
                 >
                   {testimonial.name}
                 </div>
-                <div
-                  style={{
-                    fontSize: 11,
-                    color: "rgba(240,238,232,0.4)",
-                  }}
-                >
+                <div style={{ fontSize: 11, color: "#9c876e" }}>
                   {testimonial.role}
                 </div>
               </div>
@@ -1879,17 +1795,13 @@ function TestimonialsTab({ program, isMobile }) {
 function FAQTab({ program, isMobile }) {
   const [openIndex, setOpenIndex] = useState(null);
 
-  if (!program.faq || program.faq.length === 0) {
+  if (!program.faq?.length) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        style={{
-          textAlign: "center",
-          padding: "60px 0",
-          color: "rgba(240,238,232,0.4)",
-        }}
+        style={{ textAlign: "center", padding: "60px 0", color: "#9c876e" }}
       >
         <p style={{ fontSize: 16 }}>FAQ coming soon.</p>
       </motion.div>
@@ -1908,7 +1820,7 @@ function FAQTab({ program, isMobile }) {
           fontFamily: "'Playfair Display', serif",
           fontSize: 24,
           fontWeight: 700,
-          color: "#F0EEE8",
+          color: "#1c1510",
           margin: "0 0 32px",
         }}
       >
@@ -1919,11 +1831,11 @@ function FAQTab({ program, isMobile }) {
           <div
             key={index}
             style={{
-              border: "0.5px solid rgba(255,255,255,0.06)",
+              border: "1px solid #ede6dc",
               borderRadius: 12,
               overflow: "hidden",
-              background:
-                openIndex === index ? "rgba(255,255,255,0.02)" : "transparent",
+              background: openIndex === index ? "#fff" : "transparent",
+              transition: "background 0.2s",
             }}
           >
             <button
@@ -1939,13 +1851,13 @@ function FAQTab({ program, isMobile }) {
                 gap: 16,
                 cursor: "pointer",
                 textAlign: "left",
-                color: "#F0EEE8",
               }}
             >
               <span
                 style={{
                   fontSize: 15,
                   fontWeight: 600,
+                  color: "#1c1510",
                   fontFamily: "'DM Sans', sans-serif",
                 }}
               >
@@ -1958,7 +1870,7 @@ function FAQTab({ program, isMobile }) {
                   width: 24,
                   height: 24,
                   flexShrink: 0,
-                  color: "rgba(240,238,232,0.4)",
+                  color: "#9c876e",
                 }}
               >
                 <svg
@@ -1988,7 +1900,7 @@ function FAQTab({ program, isMobile }) {
                       padding: "0 24px 20px",
                       fontSize: 14,
                       lineHeight: 1.7,
-                      color: "rgba(240,238,232,0.55)",
+                      color: "#6b5e52",
                       margin: 0,
                     }}
                   >
